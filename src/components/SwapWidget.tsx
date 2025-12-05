@@ -7,6 +7,7 @@ import {
   MIN_STARS,
   PAYMENT_FEE_PERCENT,
   PAYMENT_METHODS,
+  PREMIUM_MONTHS,
   RUB_PER_STAR,
   STAR_PACKAGES,
   TRANSLATIONS,
@@ -100,7 +101,10 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
       {/* Tab Switcher */}
       <div className="p-1 mx-6 mt-6 bg-zinc-950/50 rounded-xl flex items-center relative z-10">
         <button
-          onClick={() => setActiveTab(TabType.STARS)}
+          onClick={() => {
+            setActiveTab(TabType.STARS);
+            setStarsAmount(50);
+          }}
           className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${
             activeTab === TabType.STARS
               ? 'bg-zinc-800 text-white shadow-lg'
@@ -151,34 +155,55 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
           </div>
         </div>
 
-        {/* Amount Input */}
+        {/* Amount Input or Duration Selector */}
         <div className="space-y-1.5">
           <label className="text-xs font-medium text-zinc-400 ml-1">
             {activeTab === TabType.STARS ? t.labelAmountStars : t.labelDuration}
           </label>
-          <div className="relative group">
-            <div
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors group-focus-within:text-yellow-400">
-              <Star size={18} fill={activeTab === TabType.STARS ? "currentColor" : "none"}/>
+          
+          {activeTab === TabType.STARS ? (
+            <div className="relative group">
+              <div
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors group-focus-within:text-yellow-400">
+                <Star size={18} fill="currentColor"/>
+              </div>
+
+              <input
+                type="text"
+                inputMode="numeric"
+                value={starsAmount}
+                onChange={handleAmountChange}
+                onBlur={handleBlurAmount}
+                className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 rounded-xl py-3.5 pl-10 pr-24 text-white outline-none transition-all font-mono text-lg"
+              />
+
+              {/* Price Estimate Indicator for Stars */}
+              <div
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm font-medium pointer-events-none">
+                ≈ {calculations.subtotal.toLocaleString('ru-RU')} ₽
+              </div>
             </div>
-
-            <input
-              type="text"
-              inputMode="numeric"
-              value={starsAmount}
-              onChange={handleAmountChange}
-              onBlur={handleBlurAmount}
-              className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 rounded-xl py-3.5 pl-10 pr-24 text-white outline-none transition-all font-mono text-lg"
-            />
-
-            {/* Price Estimate Indicator */}
-            <div
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm font-medium pointer-events-none">
-              ≈ {calculations.subtotal.toLocaleString('ru-RU')} ₽
+          ) : (
+            // Custom Duration Selector for Premium
+            <div className="grid grid-cols-3 gap-3">
+              {PREMIUM_MONTHS.map((duration) => (
+                <button
+                  key={duration}
+                  onClick={() => setStarsAmount(duration)}
+                  className={`
+                    flex flex-col items-center justify-center py-3 rounded-xl border transition-all duration-200
+                    ${starsAmount === duration 
+                      ? 'bg-primary-400/10 border-primary-400 text-primary-400 ring-1 ring-primary-400/50' 
+                      : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:bg-zinc-900'}
+                  `}
+                >
+                  <span className="text-lg font-bold">{duration} {language === 'ru' ? 'Мес.' : 'Mon.'}</span>
+                </button>
+              ))}
             </div>
-          </div>
+          )}
 
-          {/* Quick Selectors */}
+          {/* Quick Selectors - Only for stars */}
           {activeTab === TabType.STARS && (
             <div className="flex flex-wrap gap-2 mt-2">
               {STAR_PACKAGES.map((amt) => (
@@ -252,7 +277,11 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
             </span>
             <span className="text-white font-medium flex items-center gap-1.5">
               {calculations.receiveAmount.toLocaleString()}
-              <Star size={14} className="fill-yellow-500 text-yellow-500"/>
+              {activeTab === TabType.STARS ? (
+                <Star size={14} className="fill-yellow-500 text-yellow-500"/>
+              ) : (
+                 <span className="text-xs text-zinc-500">{language === 'ru' ? 'мес.' : 'mo.'}</span>
+              )}
             </span>
           </div>
 

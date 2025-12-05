@@ -1,6 +1,6 @@
 
 
-export const APP_NAME = "StarPay";
+export const APP_NAME = "zStars";
 
 // Exchange Rates
 export const RUB_PER_STAR = 1.5;
@@ -30,7 +30,7 @@ export const SLIDES = {
   ru: [
     {
       id: 1,
-      title: "StarPay News",
+      title: "zStars News",
       text: "Подписывайтесь на наш телеграм канал. Рассказываем об экосистеме телеграм и не только.",
       linkUrl: "https://t.me/zStarsNews",
       linkLabel: "Перейти в канал",
@@ -48,7 +48,7 @@ export const SLIDES = {
   en: [
     {
       id: 1,
-      title: "StarPay News",
+      title: "zStars News",
       text: "Subscribe to our Telegram channel. We talk about the Telegram ecosystem and more.",
       linkUrl: "https://t.me/zStarsNews",
       linkLabel: "Open channel",
@@ -163,7 +163,7 @@ export const FAQ_ITEMS = {
 
 export const LEGAL_CONTENT = {
   ru: {
-    privacy: `Политика конфиденциальности StarPay
+    privacy: `Политика конфиденциальности zStars
 
 1. Общие положения
 Настоящая политика описывает, как мы собираем, используем и защищаем вашу информацию. Мы уважаем вашу конфиденциальность и стремимся защитить ваши личные данные.
@@ -176,7 +176,7 @@ export const LEGAL_CONTENT = {
 
 4. Безопасность
 Мы принимаем все необходимые меры для защиты ваших данных от несанкционированного доступа.`,
-    terms: `Условия использования StarPay
+    terms: `Условия использования zStars
 
 1. Введение
 Используя наш сервис, вы соглашаетесь с данными условиями. Пожалуйста, внимательно ознакомьтесь с ними перед совершением покупки.
@@ -191,7 +191,7 @@ export const LEGAL_CONTENT = {
 Мы не несем ответственности за действия третьих лиц или сбои в работе экосистемы Telegram.`
   },
   en: {
-    privacy: `StarPay Privacy Policy
+    privacy: `zStars Privacy Policy
 
 1. General Provisions
 This policy describes how we collect, use, and protect your information. We respect your privacy and are committed to protecting your personal data.
@@ -204,7 +204,7 @@ Data is used solely for order processing and improving service quality. We do no
 
 4. Security
 We take all necessary measures to protect your data from unauthorized access.`,
-    terms: `StarPay Terms of Use
+    terms: `zStars Terms of Use
 
 1. Introduction
 By using our service, you agree to these terms. Please read them carefully before making a purchase.
@@ -259,7 +259,7 @@ export const TRANSLATIONS = {
       privacy: "Политика конфиденциальности",
       terms: "Условия использования",
       api: "API",
-      disclaimer: "StarPay — независимый сервис и не связан с Telegram FZ-LLC."
+      disclaimer: "zStars — независимый сервис и не связан с Telegram FZ-LLC."
     }
   },
   en: {
@@ -300,7 +300,7 @@ export const TRANSLATIONS = {
       privacy: "Privacy Policy",
       terms: "Terms of Use",
       api: "API",
-      disclaimer: "StarPay is an independent service and not affiliated with Telegram FZ-LLC."
+      disclaimer: "zStars is an independent service and not affiliated with Telegram FZ-LLC."
     }
   }
 };
