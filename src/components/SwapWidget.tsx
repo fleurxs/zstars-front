@@ -37,6 +37,7 @@ interface SwapWidgetProps {
 
 const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
   const t = TRANSLATIONS[language].widget;
+  const usernameHelpSections = t.usernameHelpSections ?? [];
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -54,6 +55,8 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
   const [submittingPhase, setSubmittingPhase] = useState<'idle' | 'creating' | 'waiting'>('idle');
   const [usernameError, setUsernameError] = useState<string>('');
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
+  const [isUsernameHelpOpen, setIsUsernameHelpOpen] = useState<boolean>(false);
+  const [usernameHelpAccordion, setUsernameHelpAccordion] = useState<Record<string, boolean>>({});
   const userFetchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const userFetchController = useRef<AbortController | null>(null);
   const hydratedFromQuery = useRef<boolean>(false);
@@ -143,6 +146,19 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
     }
   }, [paymentMethods, paymentMethod]);
 
+  useEffect(() => {
+    if (!isUsernameHelpOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isUsernameHelpOpen]);
+
+  useEffect(() => {
+    setUsernameHelpAccordion({});
+  }, [language]);
+
   // Username validation handler
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -168,6 +184,30 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
       userFetchController.current.abort();
       userFetchController.current = null;
     }
+  };
+
+  const openUsernameHelp = () => {
+    setIsUsernameHelpOpen(true);
+    if (usernameHelpSections.length > 0) {
+      setUsernameHelpAccordion((prev) => {
+        if (Object.keys(prev).length > 0) {
+          return prev;
+        }
+        const first = usernameHelpSections[0].platform;
+        return {[first]: true};
+      });
+    }
+  };
+
+  const closeUsernameHelp = () => {
+    setIsUsernameHelpOpen(false);
+  };
+
+  const handleToggleUsernameHelpSection = (platform: string) => {
+    setUsernameHelpAccordion((prev) => ({
+      ...prev,
+      [platform]: !prev[platform]
+    }));
   };
 
   // Calculations
@@ -429,10 +469,21 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
         {step === 1 && (
           <>
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-zinc-400 ml-1">
-                {t.labelUsername}
-                {displayName ? <span className="text-zinc-500 ml-2">· {displayName}</span> : null}
-              </label>
+              <div className="flex items-center justify-between gap-3">
+                <label className="text-xs font-medium text-zinc-400 ml-1">
+                  {t.labelUsername}
+                  {displayName ? <span className="text-zinc-500 ml-2">· {displayName}</span> : null}
+                </label>
+                {usernameHelpSections.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={openUsernameHelp}
+                    className="text-[11px] font-semibold text-primary-400 hover:text-primary-300 transition-colors"
+                  >
+                    {t.usernameHelpButton}
+                  </button>
+                )}
+              </div>
               <div className="relative group">
                 <div
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors group-focus-within:text-white">
@@ -773,6 +824,58 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
           </>
         )}
       </div>
+      {isUsernameHelpOpen && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={closeUsernameHelp}
+          />
+          <div className="relative bg-zinc-900 border border-zinc-800 w-full max-w-2xl max-h-[85vh] rounded-2xl shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-zinc-800">
+              <h3 className="text-xl font-bold text-white">{t.usernameHelpTitle}</h3>
+              <button
+                onClick={closeUsernameHelp}
+                className="text-zinc-500 hover:text-white transition-colors p-1"
+              >
+                <X size={22}/>
+              </button>
+            </div>
+            <div className="p-6 space-y-4 overflow-y-auto max-h-[calc(85vh-88px)]">
+              {usernameHelpSections.map((section) => {
+                const isOpen = usernameHelpAccordion[section.platform];
+                return (
+                  <div
+                    key={section.platform}
+                    className="border border-zinc-800 rounded-xl bg-zinc-950/60"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => handleToggleUsernameHelpSection(section.platform)}
+                      className="w-full flex items-center justify-between px-4 py-3 text-left text-sm text-white"
+                    >
+                      <span>{section.platform}</span>
+                      <ChevronDown
+                        size={16}
+                        className={`text-zinc-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                    {isOpen && (
+                      <ul className="px-4 pb-4 space-y-2 text-sm text-zinc-300">
+                        {section.steps.map((step, idx) => (
+                          <li key={`${section.platform}-${idx}`} className="flex items-start gap-2">
+                            <span className="mt-0.5 text-primary-400">{idx + 1}.</span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

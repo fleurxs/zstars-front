@@ -267,7 +267,47 @@ export const TRANSLATIONS = {
       rowReceive: "Получу на баланс",
       rowFeeSystem: "Комиссия платежной системы",
       btnPay: "Оплатить",
-      promo: "У меня есть промокод"
+      promo: "У меня есть промокод",
+      usernameHelpButton: "Где взять",
+      usernameHelpTitle: "Где взять username в Telegram",
+      usernameHelpSections: [
+        {
+          platform: "Android",
+          steps: [
+            "Откройте Telegram и нажмите ☰ или аватар справа.",
+            "Выберите «Настройки».",
+            "В разделе «Аккаунт» найдите строку «Имя пользователя».",
+            "Скопируйте значение без символа @."
+          ]
+        },
+        {
+          platform: "iOS",
+          steps: [
+            "Запустите Telegram и откройте вкладку «Настройки».",
+            "Нажмите на блок с именем и аватаром.",
+            "В поле «Имя пользователя» увидите свой @username.",
+            "Если поле пустое, задайте имя и сохраните."
+          ]
+        },
+        {
+          platform: "Windows",
+          steps: [
+            "Откройте Telegram Desktop.",
+            "Нажмите ☰ → «Настройки».",
+            "Откройте «Профиль» и найдите «Имя пользователя».",
+            "Скопируйте текст без символа @."
+          ]
+        },
+        {
+          platform: "macOS",
+          steps: [
+            "Откройте Telegram на Mac.",
+            "В меню выберите Telegram → «Настройки» или нажмите Cmd + ,.",
+            "Перейдите в раздел «Профиль».",
+            "Скопируйте значение из поля «Имя пользователя» без @."
+          ]
+        }
+      ]
     },
     referral: {
       title: "Приглашайте и зарабатывайте TON",
@@ -334,7 +374,47 @@ export const TRANSLATIONS = {
       rowReceive: "Receive on balance",
       rowFeeSystem: "Payment System Fee",
       btnPay: "Pay",
-      promo: "I have a promo code"
+      promo: "I have a promo code",
+      usernameHelpButton: "Where to find",
+      usernameHelpTitle: "How to find your Telegram username",
+      usernameHelpSections: [
+        {
+          platform: "Android",
+          steps: [
+            "Open Telegram and tap ☰ or your avatar.",
+            "Go to Settings.",
+            "In the Account section find the Username field.",
+            "Copy it without the @ symbol."
+          ]
+        },
+        {
+          platform: "iOS",
+          steps: [
+            "Open Telegram and go to the Settings tab.",
+            "Tap your profile card with name and avatar.",
+            "Find the Username field and copy it.",
+            "If it is empty, set a username and save."
+          ]
+        },
+        {
+          platform: "Windows",
+          steps: [
+            "Open Telegram Desktop.",
+            "Click ☰ → Settings.",
+            "Open Profile and find the Username field.",
+            "Copy the text without the @ symbol."
+          ]
+        },
+        {
+          platform: "macOS",
+          steps: [
+            "Open Telegram for macOS.",
+            "In the top menu choose Telegram → Settings or press Cmd + ,.",
+            "Go to Profile.",
+            "Copy the value from Username without @."
+          ]
+        }
+      ]
     },
     referral: {
       title: "Invite and Earn TON",
