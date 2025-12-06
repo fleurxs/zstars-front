@@ -1,12 +1,11 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {Check, ChevronDown, CreditCard, Info, Star, User} from 'lucide-react';
-import {Language, PaymentMethod, TabType} from '../types';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {Check, ChevronDown, CreditCard, Info, Loader2, Star, User, X} from 'lucide-react';
+import {Language, PaymentMethodCode, PaymentMethodOption, TabType} from '../types';
 import {
   DEFAULT_AVATAR,
   MAX_STARS,
   MIN_STARS,
   PAYMENT_FEE_PERCENT,
-  PAYMENT_METHODS,
   PREMIUM_MONTHS,
   RUB_PER_STAR,
   STAR_PACKAGES,
@@ -17,27 +16,108 @@ import {
 
 interface SwapWidgetProps {
   language: Language;
+  paymentMethods: PaymentMethodOption[];
 }
 
-const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
+const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
   const t = TRANSLATIONS[language].widget;
 
   const [activeTab, setActiveTab] = useState<TabType>(TabType.STARS);
   const [username, setUsername] = useState<string>('');
   const [starsAmount, setStarsAmount] = useState<number | string>(50); // Allow string for typing
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PaymentMethod.SBP);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethodCode>(paymentMethods[0]?.code ?? '');
   const [agreed, setAgreed] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<string | null>(null);
+  const [displayName, setDisplayName] = useState<string>('');
+  const [usernameError, setUsernameError] = useState<string>('');
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
+  const userFetchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const userFetchController = useRef<AbortController | null>(null);
 
-  // Simulate backend avatar fetch
   useEffect(() => {
-    if (username.length >= USERNAME_MIN_LENGTH) {
-      // In a real app, this would be a debounce fetch
-      setAvatar(DEFAULT_AVATAR);
-    } else {
-      setAvatar(null);
+    if (userFetchTimeout.current) {
+      clearTimeout(userFetchTimeout.current);
+      userFetchTimeout.current = null;
     }
-  }, [username]);
+    if (userFetchController.current) {
+      userFetchController.current.abort();
+      userFetchController.current = null;
+    }
+    if (username.length < USERNAME_MIN_LENGTH) {
+      setAvatar(null);
+      setDisplayName('');
+      setUsernameError('');
+      setIsLoadingUser(false);
+      return;
+    }
+    userFetchTimeout.current = setTimeout(async () => {
+      const controller = new AbortController();
+      userFetchController.current = controller;
+      setIsLoadingUser(true);
+      setUsernameError('');
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+        if (!baseUrl) {
+          setUsernameError(t.usernameFetchError);
+          setIsLoadingUser(false);
+          return;
+        }
+        const endpoint = `/v1/public/api/recipients/${encodeURIComponent(username)}`;
+        const url = `${baseUrl.replace(/\/+$/, '')}${endpoint}`;
+        const res = await fetch(url, {signal: controller.signal});
+        if (!res.ok) {
+          if (res.status === 404) {
+            setUsernameError(t.usernameNotFound);
+          } else {
+            setUsernameError(t.usernameFetchError);
+          }
+          setAvatar(null);
+          setDisplayName('');
+          return;
+        }
+        const payload = await res.json();
+        const data = payload?.result ?? payload?.data ?? null;
+        if (!data) {
+          setUsernameError(t.usernameFetchError);
+          setAvatar(null);
+          setDisplayName('');
+          return;
+        }
+        setAvatar(data.avatar || DEFAULT_AVATAR);
+        setDisplayName(data.displayName || '');
+      } catch (err: unknown) {
+        if ((err as Error)?.name === 'AbortError') {
+          return;
+        }
+        setUsernameError(t.usernameFetchError);
+        setAvatar(null);
+        setDisplayName('');
+      } finally {
+        setIsLoadingUser(false);
+      }
+    }, 450);
+
+    return () => {
+      if (userFetchTimeout.current) {
+        clearTimeout(userFetchTimeout.current);
+        userFetchTimeout.current = null;
+      }
+      if (userFetchController.current) {
+        userFetchController.current.abort();
+        userFetchController.current = null;
+      }
+    };
+  }, [username, t]);
+
+  useEffect(() => {
+    if (paymentMethods.length === 0) {
+      setPaymentMethod('');
+      return;
+    }
+    if (!paymentMethods.some((method) => method.code === paymentMethod)) {
+      setPaymentMethod(paymentMethods[0].code);
+    }
+  }, [paymentMethods, paymentMethod]);
 
   // Username validation handler
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +125,25 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
     // Allow only English letters, numbers, and underscores
     const cleaned = val.replace(/[^a-zA-Z0-9_]/g, '');
     setUsername(cleaned);
+    setUsernameError('');
+    setDisplayName('');
+    setAvatar(null);
+  };
+
+  const handleClearUsername = () => {
+    setUsername('');
+    setAvatar(null);
+    setDisplayName('');
+    setUsernameError('');
+    setIsLoadingUser(false);
+    if (userFetchTimeout.current) {
+      clearTimeout(userFetchTimeout.current);
+      userFetchTimeout.current = null;
+    }
+    if (userFetchController.current) {
+      userFetchController.current.abort();
+      userFetchController.current = null;
+    }
   };
 
   // Calculations
@@ -133,7 +232,10 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
 
         {/* Username Input */}
         <div className="space-y-1.5">
-          <label className="text-xs font-medium text-zinc-400 ml-1">{t.labelUsername}</label>
+          <label className="text-xs font-medium text-zinc-400 ml-1">
+            {t.labelUsername}
+            {displayName ? <span className="text-zinc-500 ml-2">· {displayName}</span> : null}
+          </label>
           <div className="relative group">
             <div
               className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 transition-colors group-focus-within:text-white">
@@ -150,9 +252,24 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
               placeholder={t.placeholderUsername}
               minLength={USERNAME_MIN_LENGTH}
               maxLength={USERNAME_MAX_LENGTH}
-              className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 rounded-xl py-3.5 pl-10 pr-4 text-white outline-none transition-all placeholder:text-zinc-600 font-medium"
+              className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-zinc-600 rounded-xl py-3.5 pl-10 pr-12 text-white outline-none transition-all placeholder:text-zinc-600 font-medium"
             />
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              {isLoadingUser && <Loader2 size={16} className="text-zinc-400 animate-spin"/>}
+              {!isLoadingUser && username && (
+                <button
+                  type="button"
+                  onClick={handleClearUsername}
+                  className="text-zinc-500 hover:text-white transition-colors"
+                >
+                  <X size={16}/>
+                </button>
+              )}
+            </div>
           </div>
+          {usernameError && (
+            <p className="text-xs text-red-400 ml-1">{usernameError}</p>
+          )}
         </div>
 
         {/* Amount Input or Duration Selector */}
@@ -228,11 +345,11 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language}) => {
             </div>
             <select
               value={paymentMethod}
-              onChange={(e) => setPaymentMethod(e.target.value as PaymentMethod)}
+              onChange={(e) => setPaymentMethod(e.target.value as PaymentMethodCode)}
               className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 rounded-xl py-3.5 pl-10 pr-10 text-white outline-none appearance-none cursor-pointer transition-all font-medium"
             >
-              {PAYMENT_METHODS.map((m) => (
-                <option key={m.id} value={m.id}>
+              {paymentMethods.map((m) => (
+                <option key={m.id} value={m.code}>
                   {m.name}
                 </option>
               ))}

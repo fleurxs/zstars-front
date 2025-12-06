@@ -5,8 +5,19 @@ export enum TabType {
   PREMIUM = 'premium'
 }
 
-export enum PaymentMethod {
-  SBP = 'sbp',
-  CARD_RU = 'card_ru',
-  TON = 'ton'
+export type PaymentMethodCode = string;
+
+export interface PaymentMethodOption {
+  id: number;
+  provider: string;
+  code: string;
+  name: string;
+  limits: {
+    min: number;
+    max: number;
+  };
+  commission: {
+    percent: number;
+    fixed: number;
+  };
 }
