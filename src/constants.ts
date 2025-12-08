@@ -228,7 +228,7 @@ export const TRANSLATIONS = {
     },
     widget: {
       tabStars: "Telegram Stars",
-      tabPremium: "Premium",
+      tabPremium: "Telegram Premium",
       labelUsername: "Имя пользователя Telegram",
       placeholderUsername: "username (без @)",
       usernameNotFound: "Пользователь не найден",
@@ -254,7 +254,7 @@ export const TRANSLATIONS = {
       walletPlaceholderPhone: "+79991234567",
       walletPlaceholderOptional: "mail@example.com или телефон",
       walletOptionalBadge: "Необязательно",
-      walletInfo: "Контакт (wallet) нужен для платежной системы, чтобы отправить чек. Мы не храним его и не используем в других целях.",
+      walletInfo: "Контакт нужен только для платежной системы, чтобы отправить чек. Мы не храним и не используем в других целях.",
       walletInvalidEmail: "Введите корректный email",
       walletInvalidPhone: "Введите номер в международном формате",
       back: "Назад",
