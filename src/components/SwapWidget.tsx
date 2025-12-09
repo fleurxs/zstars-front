@@ -33,18 +33,35 @@ import {
 interface SwapWidgetProps {
   language: Language;
   paymentMethods: PaymentMethodOption[];
+  slug?: string[];
 }
 
-const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods}) => {
+const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug}) => {
   const t = TRANSLATIONS[language].widget;
   const usernameHelpSections = t.usernameHelpSections ?? [];
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [activeTab, setActiveTab] = useState<TabType>(TabType.STARS);
+  const [activeTab, setActiveTab] = useState<TabType>(() => {
+    if (slug && slug.length > 0) {
+      const firstSlug = slug[0].toLowerCase();
+      if (firstSlug === 'premium') {
+        return TabType.PREMIUM;
+      }
+    }
+    return TabType.STARS;
+  });
   const [username, setUsername] = useState<string>('');
-  const [starsAmount, setStarsAmount] = useState<number | string>(50); // Allow string for typing
+  const [starsAmount, setStarsAmount] = useState<number | string>(() => {
+    if (slug && slug.length > 0) {
+      const firstSlug = slug[0].toLowerCase();
+      if (firstSlug === 'premium') {
+        return PREMIUM_MONTHS[0];
+      }
+    }
+    return 50;
+  }); // Allow string for typing
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodCode>(paymentMethods[0]?.code ?? '');
   const [agreed, setAgreed] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<string | null>(null);

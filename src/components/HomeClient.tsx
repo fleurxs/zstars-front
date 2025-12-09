@@ -13,9 +13,10 @@ import {Language, PaymentMethodOption} from '@/types';
 
 interface HomeClientProps {
   paymentMethods: PaymentMethodOption[];
+  slug?: string[];
 }
 
-const HomeClient: React.FC<HomeClientProps> = ({paymentMethods}) => {
+const HomeClient: React.FC<HomeClientProps> = ({paymentMethods, slug}) => {
   const [language, setLanguage] = useState<Language>('ru');
 
   return (
@@ -25,7 +26,7 @@ const HomeClient: React.FC<HomeClientProps> = ({paymentMethods}) => {
 
         <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
           <div className="w-full flex flex-col items-center justify-center max-w-[500px]">
-            <SwapWidget language={language} paymentMethods={paymentMethods} />
+            <SwapWidget language={language} paymentMethods={paymentMethods} slug={slug} />
             <InfoSlider language={language} />
             <ReferralBlock language={language} />
             <FAQ language={language} />
