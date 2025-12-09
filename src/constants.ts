@@ -264,7 +264,7 @@ export const TRANSLATIONS = {
       terms: "Правилами использования",
       refund: "Политикой возврата",
       agreeSuffix: "и подтверждаю верность данных.",
-      rowReceive: "Получу на баланс",
+      rowReceive: "Получая на аккаунт",
       rowFeeSystem: "Комиссия платежной системы",
       btnPay: "Оплатить",
       promo: "У меня есть промокод",
