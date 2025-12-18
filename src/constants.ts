@@ -63,7 +63,7 @@ export const SLIDES = {
       iconType: "ton"
     }
   ]
-};
+} as const;
 
 export const NEWS_ITEMS = {
   ru: [
@@ -112,7 +112,7 @@ export const NEWS_ITEMS = {
       date: "Oct 08"
     }
   ]
-};
+} as const;
 
 export const FAQ_ITEMS = {
   ru: [
@@ -218,7 +218,7 @@ Payment is made through secure payment gateways. Refunds are possible only if th
 4. Limitation of Liability
 We are not responsible for the actions of third parties or failures in the Telegram ecosystem.`
   }
-};
+} as const;
 
 export const TRANSLATIONS = {
   ru: {
@@ -459,4 +459,4 @@ export const TRANSLATIONS = {
       disclaimer: "zStars is an independent service and not affiliated with Telegram FZ-LLC."
     }
   }
-};
+} as const;

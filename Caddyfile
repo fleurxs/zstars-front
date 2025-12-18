@@ -10,7 +10,7 @@ https://zstars.ru {
   }
 
   handle @cloudflare {
-    reverse_proxy frontend:3000
+    reverse_proxy frontend:3001
   }
 
   respond "Forbidden" 403

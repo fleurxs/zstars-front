@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, {Suspense, useState} from 'react';
 import Navbar from '@/components/Navbar';
 import SwapWidget from '@/components/SwapWidget';
 import InfoSlider from '@/components/InfoSlider';
@@ -26,7 +26,9 @@ const HomeClient: React.FC<HomeClientProps> = ({paymentMethods, slug}) => {
 
         <main className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
           <div className="w-full flex flex-col items-center justify-center max-w-[500px]">
-            <SwapWidget language={language} paymentMethods={paymentMethods} slug={slug} />
+            <Suspense fallback={null}>
+              <SwapWidget language={language} paymentMethods={paymentMethods} slug={slug} />
+            </Suspense>
             <InfoSlider language={language} />
             <ReferralBlock language={language} />
             <FAQ language={language} />

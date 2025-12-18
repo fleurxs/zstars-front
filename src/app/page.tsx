@@ -1,3 +1,4 @@
+import {Suspense} from 'react';
 import HomeClient from '@/components/HomeClient';
 import {PaymentMethodOption} from '@/types';
 
@@ -42,5 +43,9 @@ async function fetchPaymentMethods(): Promise<PaymentMethodOption[]> {
 
 export default async function Home() {
   const paymentMethods = await fetchPaymentMethods();
-  return <HomeClient paymentMethods={paymentMethods} />;
+  return (
+    <Suspense fallback={null}>
+      <HomeClient paymentMethods={paymentMethods} />
+    </Suspense>
+  );
 }

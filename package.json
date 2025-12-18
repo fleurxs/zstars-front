@@ -5,7 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "docker:up": "docker compose -f compose.yaml up -d",
+    "docker:down": "docker compose -f compose.yaml down --remove-orphans",
+    "docker:up:prod": "docker compose -f compose.prod.yaml up -d",
+    "docker:down:prod": "docker compose -f compose.prod.yaml down --remove-orphans",
+    "docker:build:prod": "docker compose -f compose.prod.yaml build",
+    "docker:restart:prod": "docker compose -f compose.prod.yaml down --remove-orphans && docker compose -f compose.prod.yaml up -d"
   },
   "dependencies": {
     "lucide-react": "^0.556.0",

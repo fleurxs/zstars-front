@@ -689,7 +689,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                   <div className="group relative">
                     <Info
                       size={14}
-                      title={t.rowReceiveTooltip}
+                      aria-label={t.rowReceiveTooltip}
                       className="text-zinc-600 hover:text-zinc-400 cursor-help"
                     />
                   <span className="absolute left-1/2 bottom-full -translate-x-1/2 -mb-3 max-w-[14rem] w-max px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-xs text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition pointer-events-none break-words text-center shadow-lg">
@@ -713,7 +713,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                   <div className="group relative">
                     <Info
                       size={14}
-                      title={t.rowFeeSystemTooltip}
+                      aria-label={t.rowFeeSystemTooltip}
                       className="text-zinc-600 hover:text-zinc-400 cursor-help"
                     />
                   <span className="absolute left-1/2 bottom-full -translate-x-1/2 -mb-3 max-w-[14rem] w-max px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-xs text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition pointer-events-none break-words text-center shadow-lg">

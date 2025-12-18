@@ -1,3 +1,4 @@
+import {Suspense} from 'react';
 import HomeClient from '@/components/HomeClient';
 import {PaymentMethodOption} from '@/types';
 
@@ -47,5 +48,9 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const paymentMethods = await fetchPaymentMethods();
-  return <HomeClient paymentMethods={paymentMethods} slug={slug} />;
+  return (
+    <Suspense fallback={null}>
+      <HomeClient paymentMethods={paymentMethods} slug={slug} />
+    </Suspense>
+  );
 }
