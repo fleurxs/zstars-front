@@ -15,10 +15,11 @@ export default async function BlogPostPage({
   searchParams,
 }: {
   params: Promise<{slug: string}>;
-  searchParams?: {lang?: string};
+  searchParams?: Promise<{lang?: string}>;
 }) {
   const {slug} = await params;
-  const language: Language = searchParams?.lang === 'en' ? 'en' : 'ru';
+  const paramsData = (await searchParams) ?? {};
+  const language: Language = paramsData.lang === 'en' ? 'en' : 'ru';
   const exists =
     BLOG_POSTS[language].some((item) => item.slug === slug) ||
     BLOG_POSTS.ru.some((item) => item.slug === slug);

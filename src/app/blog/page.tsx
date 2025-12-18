@@ -1,12 +1,13 @@
 import {Language} from '@/types';
 import BlogListClient from '@/components/BlogListClient';
 
-export default function BlogPage({
+export default async function BlogPage({
   searchParams,
 }: {
-  searchParams?: {lang?: string};
+  searchParams?: Promise<{lang?: string}>;
 }) {
-  const language: Language = searchParams?.lang === 'en' ? 'en' : 'ru';
+  const params = (await searchParams) ?? {};
+  const language: Language = params.lang === 'en' ? 'en' : 'ru';
 
   return <BlogListClient initialLanguage={language} />;
 }
