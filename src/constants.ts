@@ -80,15 +80,15 @@ export const BLOG_POSTS = {
       ]
     },
     {
-      slug: "ton-prognoz-2025",
+      slug: "ton-100-price-outlook",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-4.png&w=256&q=75",
-      title: "TON бьет рекорды: прогноз на 2025",
-      excerpt: "Экосистема растет с невероятной скоростью. Узнайте, какие монеты стоит держать в кошельке.",
+      title: "Прогноз цены TON: сможет ли Toncoin достичь $100?",
+      excerpt: "Оцениваем драйверы роста Toncoin и риски на пути к отметке $100.",
       date: "10 Окт 2025",
       content: [
-        "TON завершил год с ростом ключевых метрик: активные кошельки, транзакции и TVL продолжают обновлять максимумы. Инфраструктура становится дружелюбнее для разработчиков, что привлекает новые проекты.",
-        "Главные драйверы на 2025 год — массовое внедрение платежей через ботов и появление зрелых DeFi-протоколов. Это укрепляет спрос на токен и повышает устойчивость сети к нагрузкам.",
-        "Инвесторам стоит следить за проектами, которые решают реальные задачи: платежи в мини-приложениях, инфраструктура для NFT и прозрачные инструменты для кроссчейн-переводов."
+        "Ралли Toncoin в 2024 году было подкреплено рекордной активностью кошельков, ростом TVL и интеграциями в экосистеме Telegram. До $100 нужен не только спрос, но и устойчивый приток ликвидности и разработчиков.",
+        "Ключевые катализаторы на 2025: массовые платежи через мини‑приложения, запуск новых DeFi- и RWA-протоколов на TON, а также развитие on-chain инфраструктуры для ботов. Это повышает сетевой эффект и удерживает пользователей.",
+        "Риски — волатильность рынка и регуляторная неопределенность. Инвесторам стоит следить за метриками активных адресов, объемом стейкинга и транзакциями в ботовых платежах: именно они покажут, есть ли у Toncoin шанс закрепиться ближе к $100."
       ]
     },
     {
@@ -118,15 +118,15 @@ export const BLOG_POSTS = {
       ]
     },
     {
-      slug: "ton-prognoz-2025",
+      slug: "ton-100-price-outlook",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-4.png&w=256&q=75",
-      title: "TON keeps breaking records: outlook for 2025",
-      excerpt: "The ecosystem is expanding fast. See which tokens and sectors look resilient.",
+      title: "TON price outlook: can Toncoin reach $100?",
+      excerpt: "Assessing Toncoin growth drivers and the risks on the road to $100.",
       date: "10 Oct 2025",
       content: [
-        "TON closed the year with record highs for active wallets, transactions, and TVL. Developer tooling keeps improving, bringing more projects into the ecosystem.",
-        "Key drivers for 2025 are mainstream payments via bots and mature DeFi protocols. Both boost demand for the token and make the network more resilient under load.",
-        "Focus on projects solving real problems: payments in mini-apps, NFT infrastructure, and transparent tools for cross-chain transfers."
+        "The 2024 Toncoin rally rode record growth in active wallets, TVL, and Telegram ecosystem integrations. Reaching $100 will require not only demand but sustained liquidity inflows and developer momentum.",
+        "Key catalysts for 2025: mainstream payments through mini-apps, new DeFi and RWA protocols on TON, and stronger on-chain rails for bots. These deepen the network effect and help retain users.",
+        "Risks include market volatility and regulatory overhang. Track active addresses, staking volume, and bot-driven payment activity — those metrics will show whether Toncoin can credibly move toward the $100 mark."
       ]
     },
     {
