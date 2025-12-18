@@ -65,51 +65,81 @@ export const SLIDES = {
   ]
 } as const;
 
-export const NEWS_ITEMS = {
+export const BLOG_POSTS = {
   ru: [
     {
-      id: 1,
+      slug: "pochemu-podarki-ne-prinosyat-profit",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-2.png&w=256&q=75",
       title: "Почему новые подарки не приносят ожидаемого профита?",
-      desc: "Разбираемся в ситуации на рынке, анализируем прошлые дропы и делимся секретами.",
-      date: "12 Окт"
+      excerpt: "Разбираемся в ситуации на рынке, анализируем прошлые дропы и делимся секретами.",
+      date: "12 Окт 2025",
+      content: [
+        "Первые продажи подарков в Telegram казались беспроигрышной стратегией, но рынок быстро насытился. Спрос сместился в сторону редких коллекций, а пользователи стали внимательнее следить за окупаемостью.",
+        "Чтобы не терять на новых дропах, важно считать полный чек: цена подарка, комиссии за вывод и стоимость удержания. Мы рассматриваем модели окупаемости и делимся тем, как рассчитывать маржинальность до покупки.",
+        "Наиболее устойчивые результаты показывают пользователи, которые комбинируют новые подарки с ликвидными активами TON и грамотно распределяют риск. Следите за показателями спроса и не вкладывайте все в один релиз."
+      ]
     },
     {
-      id: 2,
+      slug: "ton-prognoz-2025",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-4.png&w=256&q=75",
-      title: "TON бьет все рекорды: прогноз на 2025",
-      desc: "Экосистема растет с невероятной скоростью. Узнайте, какие монеты стоит держать в кошельке.",
-      date: "10 Окт"
+      title: "TON бьет рекорды: прогноз на 2025",
+      excerpt: "Экосистема растет с невероятной скоростью. Узнайте, какие монеты стоит держать в кошельке.",
+      date: "10 Окт 2025",
+      content: [
+        "TON завершил год с ростом ключевых метрик: активные кошельки, транзакции и TVL продолжают обновлять максимумы. Инфраструктура становится дружелюбнее для разработчиков, что привлекает новые проекты.",
+        "Главные драйверы на 2025 год — массовое внедрение платежей через ботов и появление зрелых DeFi-протоколов. Это укрепляет спрос на токен и повышает устойчивость сети к нагрузкам.",
+        "Инвесторам стоит следить за проектами, которые решают реальные задачи: платежи в мини-приложениях, инфраструктура для NFT и прозрачные инструменты для кроссчейн-переводов."
+      ]
     },
     {
-      id: 3,
+      slug: "bezopasnost-aktivov-v-telegram",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-3.png&w=256&q=75",
       title: "Безопасность активов в Telegram",
-      desc: "Как защитить свои Stars и TON от мошенников? Простые правила цифровой гигиены.",
-      date: "08 Окт"
+      excerpt: "Как защитить свои Stars и TON от мошенников? Простые правила цифровой гигиены.",
+      date: "08 Окт 2025",
+      content: [
+        "Главный риск для активов в Telegram — социальная инженерия. Мошенники копируют интерфейсы ботов и маскируют фишинговые ссылки под официальные.",
+        "Используйте отдельные кошельки для тестов, включайте двухфакторную аутентификацию и проверяйте домены перед авторизацией. Не сохраняйте seed-фразы в заметках или скриншотах.",
+        "Для крупных сумм применяйте мультиподпись или холодное хранение, а для ежедневных операций держите только необходимый баланс. Так вы снизите ущерб даже в случае компрометации устройства."
+      ]
     }
   ],
   en: [
     {
-      id: 1,
+      slug: "pochemu-podarki-ne-prinosyat-profit",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-2.png&w=256&q=75",
-      title: "Why new gifts don't bring expected profit?",
-      desc: "We analyze the market situation, review past drops, and share secrets.",
-      date: "Oct 12"
+      title: "Why new gifts don't bring the expected profit?",
+      excerpt: "We break down recent drops, market saturation, and how to protect margin.",
+      date: "12 Oct 2025",
+      content: [
+        "Early Telegram gift releases felt like free money, but the market saturated quickly. Demand shifted to rare collections while users started tracking ROI more carefully.",
+        "To avoid losses on fresh drops, calculate the full bill: purchase price, withdrawal fees, and holding costs. We share margin models and how to estimate profitability before you buy.",
+        "Stable results come from mixing new gifts with liquid TON positions and spreading risk. Track demand signals and avoid going all-in on a single release."
+      ]
     },
     {
-      id: 2,
+      slug: "ton-prognoz-2025",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-4.png&w=256&q=75",
-      title: "TON breaks records: forecast for 2025",
-      desc: "The ecosystem is growing at incredible speed. Find out which coins are worth holding.",
-      date: "Oct 10"
+      title: "TON keeps breaking records: outlook for 2025",
+      excerpt: "The ecosystem is expanding fast. See which tokens and sectors look resilient.",
+      date: "10 Oct 2025",
+      content: [
+        "TON closed the year with record highs for active wallets, transactions, and TVL. Developer tooling keeps improving, bringing more projects into the ecosystem.",
+        "Key drivers for 2025 are mainstream payments via bots and mature DeFi protocols. Both boost demand for the token and make the network more resilient under load.",
+        "Focus on projects solving real problems: payments in mini-apps, NFT infrastructure, and transparent tools for cross-chain transfers."
+      ]
     },
     {
-      id: 3,
+      slug: "bezopasnost-aktivov-v-telegram",
       image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-3.png&w=256&q=75",
-      title: "Asset security in Telegram",
-      desc: "How to protect your Stars and TON from scammers? Simple digital hygiene rules.",
-      date: "Oct 08"
+      title: "Keeping assets safe in Telegram",
+      excerpt: "Simple hygiene rules to secure your Stars and TON from scams.",
+      date: "08 Oct 2025",
+      content: [
+        "The top threat to Telegram assets is social engineering. Scammers clone bot interfaces and hide phishing links behind official-looking buttons.",
+        "Use separate wallets for testing, enable two-factor authentication, and double-check domains before authorizing. Never store seed phrases in screenshots or plain notes.",
+        "Keep large balances in multisig or cold storage and only hold a working amount for daily use. This limits damage even if a device gets compromised."
+      ]
     }
   ]
 } as const;
@@ -326,8 +356,8 @@ export const TRANSLATIONS = {
       desc: "Зарабатывайте до 50% от комиссии за покупки, совершенные вашими друзьями, навсегда."
     },
     faqTitle: "Часто задаваемые вопросы",
-    newsTitle: "Последние новости",
-    readMore: "Читать далее",
+    newsTitle: "Наши статьи",
+    readMore: "Читать статью",
     cookie: {
       text: "Сайт использует куки.",
       link: "Узнать больше",
@@ -445,8 +475,8 @@ export const TRANSLATIONS = {
       desc: "Earn up to 50% of the commission on purchases made by your friends, forever."
     },
     faqTitle: "Frequently Asked Questions",
-    newsTitle: "Latest News",
-    readMore: "Read more",
+    newsTitle: "Our Articles",
+    readMore: "Read article",
     cookie: {
       text: "This site uses cookies.",
       link: "Learn more",
