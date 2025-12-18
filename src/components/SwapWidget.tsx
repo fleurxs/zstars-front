@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {usePathname, useRouter, useSearchParams} from 'next/navigation';
+import {useSearchParams} from 'next/navigation';
 import {
   AlertCircle,
   ArrowLeft,
@@ -39,8 +39,6 @@ interface SwapWidgetProps {
 const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug}) => {
   const t = TRANSLATIONS[language].widget;
   const usernameHelpSections = t.usernameHelpSections ?? [];
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   type PublicPaymentStatus =
     | 'pending_payment'
@@ -424,25 +422,6 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       setStep(2);
     }
   }, [paymentMethods, searchParams]);
-
-  useEffect(() => {
-    if (step !== 2) {
-      router.replace(pathname, {scroll: false});
-      return;
-    }
-    const params = new URLSearchParams();
-    if (username) {
-      params.set('username', username);
-    }
-    if (normalizedAmount > 0) {
-      params.set('amount', String(normalizedAmount));
-    }
-    if (paymentMethod) {
-      params.set('paymentMethod', paymentMethod);
-    }
-    const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, {scroll: false});
-  }, [normalizedAmount, pathname, paymentMethod, router, step, username]);
 
   const canProceedToReview =
     username.length >= USERNAME_MIN_LENGTH && !usernameError && paymentMethod && normalizedAmount > 0;
