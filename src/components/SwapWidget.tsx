@@ -42,6 +42,14 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  type PublicPaymentStatus =
+    | 'pending_payment'
+    | 'payment_failed'
+    | 'payment_expired'
+    | 'payment_refunded'
+    | 'paid_delivery_pending'
+    | 'delivery_failed'
+    | 'completed';
 
   const [activeTab, setActiveTab] = useState<TabType>(() => {
     if (slug && slug.length > 0) {
@@ -69,13 +77,17 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
   const [step, setStep] = useState<number>(1);
   const [wallet, setWallet] = useState<string>('');
   const [walletError, setWalletError] = useState<string>('');
-  const [submittingPhase, setSubmittingPhase] = useState<'idle' | 'creating' | 'waiting'>('idle');
+  const [submittingPhase, setSubmittingPhase] = useState<
+    'idle' | 'creating' | 'waiting' | 'completed' | 'failed'
+  >('idle');
   const [usernameError, setUsernameError] = useState<string>('');
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
   const [isUsernameHelpOpen, setIsUsernameHelpOpen] = useState<boolean>(false);
   const [usernameHelpAccordion, setUsernameHelpAccordion] = useState<Record<string, boolean>>({});
+  const [paymentStatus, setPaymentStatus] = useState<PublicPaymentStatus | null>(null);
   const userFetchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const userFetchController = useRef<AbortController | null>(null);
+  const statusIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const hydratedFromQuery = useRef<boolean>(false);
 
   useEffect(() => {
@@ -295,6 +307,63 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     setWalletError(getWalletError(wallet));
   }, [getWalletError, wallet]);
 
+  useEffect(() => {
+    if (submittingPhase !== 'waiting') {
+      if (statusIntervalRef.current) {
+        clearInterval(statusIntervalRef.current);
+        statusIntervalRef.current = null;
+      }
+      return;
+    }
+    if (!username || normalizedAmount <= 0) {
+      return;
+    }
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+    const endpoint = '/v1/public/api/payments/status';
+    const url = baseUrl ? `${baseUrl.replace(/\/+$/, '')}${endpoint}` : endpoint;
+    let cancelled = false;
+
+    const isFinalStatus = (status: PublicPaymentStatus | null) =>
+      !!status && status !== 'pending_payment' && status !== 'paid_delivery_pending';
+
+    const fetchStatus = async () => {
+      try {
+        const params = new URLSearchParams({
+          username,
+          type: activeTab,
+          amount: String(normalizedAmount)
+        });
+        const res = await fetch(`${url}?${params.toString()}`);
+        if (!res.ok) {
+          return;
+        }
+        const data = await res.json();
+        const result = data?.result ?? data?.data ?? null;
+        const status = (result?.publicStatus as PublicPaymentStatus | undefined) ?? null;
+        if (cancelled) {
+          return;
+        }
+        if (status) {
+          setPaymentStatus(status);
+          if (isFinalStatus(status)) {
+            setSubmittingPhase(status === 'completed' ? 'completed' : 'failed');
+          }
+        }
+      } catch (_err) {}
+    };
+
+    fetchStatus();
+    statusIntervalRef.current = setInterval(fetchStatus, 3000);
+
+    return () => {
+      cancelled = true;
+      if (statusIntervalRef.current) {
+        clearInterval(statusIntervalRef.current);
+        statusIntervalRef.current = null;
+      }
+    };
+  }, [activeTab, normalizedAmount, submittingPhase, username]);
+
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     if (val === '') {
@@ -388,6 +457,9 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       ? t.walletPlaceholderEmail
       : t.walletPlaceholderOptional;
 
+  const statusTextMap = (t.statusText || {}) as Record<PublicPaymentStatus, string>;
+  const currentStatusLabel = paymentStatus ? statusTextMap[paymentStatus] ?? t.waitingPayment : t.waitingPayment;
+
   const submitting = submittingPhase !== 'idle';
 
   const canPay =
@@ -411,6 +483,11 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       setWalletError(walletRequirement === 'phone' ? t.walletInvalidPhone : t.walletInvalidEmail);
       return;
     }
+    if (statusIntervalRef.current) {
+      clearInterval(statusIntervalRef.current);
+      statusIntervalRef.current = null;
+    }
+    setPaymentStatus(null);
     setSubmittingPhase('creating');
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
     const endpoint = '/v1/public/api/payments';
@@ -695,7 +772,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
               </div>
             </div>
 
-            <div className="bg-zinc-950/60 border border-zinc-800 rounded-xl p-4">
+            <>
               <div className="text-xs text-zinc-400 mb-3">{t.orderSummary}</div>
               <div className="grid grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col justify-between">
@@ -742,7 +819,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                   </div>
                 </div>
               </div>
-            </div>
+            </>
 
             {submittingPhase === 'idle' && (
               <>
@@ -833,8 +910,26 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
               <div className="flex items-center gap-3 bg-zinc-950 border border-zinc-800 rounded-xl p-4">
                 <Loader2 size={18} className="text-primary-300 animate-spin"/>
                 <div className="flex flex-col">
-                  <span className="text-sm text-white">{t.waitingPayment}</span>
+                  <span className="text-sm text-white">{currentStatusLabel}</span>
                 </div>
+              </div>
+            )}
+
+            {submittingPhase === 'failed' && (
+              <div className="flex items-center gap-3 bg-zinc-950 border border-red-900 rounded-xl p-4">
+                <AlertCircle size={18} className="text-red-400"/>
+                <div className="flex flex-col">
+                  <span className="text-sm text-white">{currentStatusLabel}</span>
+                </div>
+              </div>
+            )}
+
+            {submittingPhase === 'completed' && (
+              <div className="flex flex-col items-center gap-4 bg-zinc-950 border border-emerald-700 rounded-xl p-6">
+                <div className="w-16 h-16 rounded-full bg-emerald-500 flex items-center justify-center">
+                  <Check size={28} className="text-black" strokeWidth={3}/>
+                </div>
+                <span className="text-lg font-semibold text-white">{t.paymentCompleted}</span>
               </div>
             )}
           </>

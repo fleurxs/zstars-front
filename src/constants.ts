@@ -260,6 +260,7 @@ export const TRANSLATIONS = {
       back: "Назад",
       creatingLink: "Создаем ссылку для оплаты",
       waitingPayment: "Ожидаем оплаты",
+      paymentCompleted: "Платеж выполнен!",
       agreePrefix: "Я согласен с",
       terms: "Правилами использования",
       refund: "Политикой возврата",
@@ -270,6 +271,15 @@ export const TRANSLATIONS = {
       promo: "У меня есть промокод",
       usernameHelpButton: "Где взять",
       usernameHelpTitle: "Где взять username в Telegram",
+      statusText: {
+        pending_payment: "Ожидаем оплату",
+        paid_delivery_pending: "Оплата получена, доставляем",
+        payment_failed: "Платеж не прошел",
+        payment_expired: "Время оплаты истекло",
+        payment_refunded: "Платеж возвращен",
+        delivery_failed: "Ошибка доставки",
+        completed: "Платеж завершен"
+      },
       usernameHelpSections: [
         {
           platform: "Android",
@@ -367,6 +377,7 @@ export const TRANSLATIONS = {
       back: "Back",
       creatingLink: "Creating payment link",
       waitingPayment: "Waiting for payment",
+      paymentCompleted: "Payment completed!",
       agreePrefix: "I agree with the",
       terms: "Terms of Service",
       refund: "Refund Policy",
@@ -377,6 +388,15 @@ export const TRANSLATIONS = {
       promo: "I have a promo code",
       usernameHelpButton: "Where to find",
       usernameHelpTitle: "How to find your Telegram username",
+      statusText: {
+        pending_payment: "Waiting for payment",
+        paid_delivery_pending: "Payment received, delivering",
+        payment_failed: "Payment failed",
+        payment_expired: "Payment expired",
+        payment_refunded: "Payment refunded",
+        delivery_failed: "Delivery failed",
+        completed: "Payment completed"
+      },
       usernameHelpSections: [
         {
           platform: "Android",
