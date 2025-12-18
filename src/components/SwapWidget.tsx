@@ -687,7 +687,14 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                 <span className="text-zinc-400 flex items-center gap-1">
                   {t.rowReceive}
                   <div className="group relative">
-                    <Info size={14} className="text-zinc-600 hover:text-zinc-400 cursor-help"/>
+                    <Info
+                      size={14}
+                      title={t.rowReceiveTooltip}
+                      className="text-zinc-600 hover:text-zinc-400 cursor-help"
+                    />
+                  <span className="absolute left-1/2 bottom-full -translate-x-1/2 -mb-3 max-w-[14rem] w-max px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-xs text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition pointer-events-none break-words text-center shadow-lg">
+                    {t.rowReceiveTooltip}
+                  </span>
                   </div>
                 </span>
                 <span className="text-white font-medium flex items-center gap-1.5">
@@ -703,7 +710,16 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
               <div className="flex justify-between items-center text-sm">
                 <span className="text-zinc-400 flex items-center gap-1">
                   {t.rowFeeSystem}
-                  <Info size={14} className="text-zinc-600 hover:text-zinc-400 cursor-help"/>
+                  <div className="group relative">
+                    <Info
+                      size={14}
+                      title={t.rowFeeSystemTooltip}
+                      className="text-zinc-600 hover:text-zinc-400 cursor-help"
+                    />
+                  <span className="absolute left-1/2 bottom-full -translate-x-1/2 -mb-3 max-w-[14rem] w-max px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-xs text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition pointer-events-none break-words text-center shadow-lg">
+                    {t.rowFeeSystemTooltip}
+                  </span>
+                  </div>
                 </span>
                 <span className="text-zinc-300 font-medium flex items-center gap-1.5">
                   {calculations.fee} ₽
