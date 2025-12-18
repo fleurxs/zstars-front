@@ -19,7 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ language, setLanguage }) => {
     <nav className="w-full py-6 px-8 flex items-center justify-between max-w-7xl mx-auto z-50">
       {/* Logo */}
       <div className="flex items-center gap-2 group cursor-pointer">
-        <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-zinc-800 text-primary-400 group-hover:bg-zinc-700 transition-colors">
+        <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-primary-400 text-zinc-900 group-hover:bg-primary-500 transition-colors">
           <Star className="w-5 h-5 fill-current" />
         </div>
         <span className="text-xl font-bold tracking-tight text-white">{APP_NAME}</span>
