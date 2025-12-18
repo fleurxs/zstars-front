@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build: .
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+
+networks:
+  default:
+    name: zstars-front_default
+
