@@ -69,7 +69,7 @@ export const BLOG_POSTS = {
   ru: [
     {
       slug: "pochemu-podarki-ne-prinosyat-profit",
-      image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-2.png&w=256&q=75",
+      image: "/blog/pochemu-podarki-ne-prinosyat-profit.png",
       title: "Почему новые подарки не приносят ожидаемого профита?",
       excerpt: "В декабре 2025 заработать на подарках Telegram сложнее: перенасыщение, конкуренция, дисконт при конвертации в Stars и падение ликвидности. Разбор причин и чек-лист перед покупкой.",
       date: "12 Окт 2025",
@@ -141,7 +141,7 @@ export const BLOG_POSTS = {
     },
     {
       slug: "ton-100-price-outlook",
-      image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-4.png&w=256&q=75",
+      image: "/blog/ton-100-price-outlook.png",
       title: "Прогноз цены TON: сможет ли Toncoin достичь $100?",
       excerpt: "Оцениваем драйверы роста Toncoin и риски на пути к отметке $100.",
       date: "10 Окт 2025",
@@ -153,7 +153,7 @@ export const BLOG_POSTS = {
     },
     {
       slug: "bezopasnost-aktivov-v-telegram",
-      image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-3.png&w=256&q=75",
+      image: "/blog/bezopasnost-aktivov-v-telegram.png",
       title: "Безопасность активов в Telegram",
       excerpt: "Как защитить свои Stars и TON от мошенников? Простые правила цифровой гигиены.",
       date: "08 Окт 2025",
@@ -167,7 +167,7 @@ export const BLOG_POSTS = {
   en: [
     {
       slug: "pochemu-podarki-ne-prinosyat-profit",
-      image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-2.png&w=256&q=75",
+      image: "/blog/pochemu-podarki-ne-prinosyat-profit.png",
       title: "Why new gifts don't bring the expected profit?",
       excerpt: "We break down recent drops, market saturation, and how to protect margin.",
       date: "12 Oct 2025",
@@ -179,7 +179,7 @@ export const BLOG_POSTS = {
     },
     {
       slug: "ton-100-price-outlook",
-      image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-4.png&w=256&q=75",
+      image: "/blog/ton-100-price-outlook.png",
       title: "TON price outlook: can Toncoin reach $100?",
       excerpt: "Assessing Toncoin growth drivers and the risks on the road to $100.",
       date: "10 Oct 2025",
@@ -191,7 +191,7 @@ export const BLOG_POSTS = {
     },
     {
       slug: "bezopasnost-aktivov-v-telegram",
-      image: "https://changelly.com/_next/image?url=%2Fweb-assets%2Fguides-faq%2Fexchange-guides-3.png&w=256&q=75",
+      image: "/blog/bezopasnost-aktivov-v-telegram.png",
       title: "Keeping assets safe in Telegram",
       excerpt: "Simple hygiene rules to secure your Stars and TON from scams.",
       date: "08 Oct 2025",

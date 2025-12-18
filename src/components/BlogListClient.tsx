@@ -36,12 +36,12 @@ const BlogListClient = ({initialLanguage}: {initialLanguage: Language}) => {
                   href={`/blog/${post.slug}`}
                   className="group block bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden hover:border-primary-500/60 transition-all duration-300"
                 >
-                  <div className="sm:flex">
-                    <div className="sm:w-56 h-40 sm:h-full overflow-hidden relative">
+                  <div className="sm:flex sm:items-stretch">
+                    <div className="sm:w-56 h-48 sm:h-auto sm:min-h-full sm:self-stretch overflow-hidden relative">
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                        className="block w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                     <div className="flex-1 p-5 flex flex-col gap-3">
