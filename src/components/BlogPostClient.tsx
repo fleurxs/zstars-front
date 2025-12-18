@@ -30,19 +30,19 @@ const BlogPostClient = ({
 
         <main className="flex-1 flex flex-col items-center p-4 md:p-8">
           <div className="w-full max-w-3xl text-white">
-            <div className="flex items-center justify-between gap-4 mb-8">
-              <div className="flex flex-col">
+            <div className="flex flex-col gap-3 mb-8">
+              <div className="flex items-center justify-between gap-4">
                 <span className="text-xs font-semibold uppercase tracking-wider text-primary-400">
                   {post.date}
                 </span>
-                <h1 className="text-3xl font-bold mt-2">{post.title}</h1>
+                <Link
+                  href="/blog"
+                  className="text-sm text-primary-400 hover:underline font-medium"
+                >
+                  {language === 'ru' ? 'К списку статей' : 'Back to articles'}
+                </Link>
               </div>
-              <Link
-                href="/blog"
-                className="text-sm text-primary-400 hover:underline font-medium"
-              >
-                {language === 'ru' ? 'К списку статей' : 'Back to articles'}
-              </Link>
+              <h1 className="text-3xl font-bold">{post.title}</h1>
             </div>
 
             <div className="rounded-2xl overflow-hidden border border-zinc-800 mb-8">
