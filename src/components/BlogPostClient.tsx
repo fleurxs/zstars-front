@@ -54,11 +54,22 @@ const BlogPostClient = ({
             </div>
 
             <div className="space-y-5 text-zinc-200 leading-relaxed">
-              {post.content.map((paragraph, index) => (
-                <p key={index} className="text-base">
-                  {paragraph}
-                </p>
-              ))}
+              {'contentHtml' in (post || {}) && typeof (post as {contentHtml?: unknown}).contentHtml === 'string' ? (
+                <article
+                  className="space-y-4 text-base leading-relaxed [&_h1]:text-white [&_h1]:text-2xl [&_h1]:md:text-3xl [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-white [&_h2]:text-xl [&_h2]:md:text-2xl [&_h2]:font-semibold [&_h2]:mb-2 [&_h3]:text-white [&_h3]:text-lg [&_h3]:md:text-xl [&_h3]:font-semibold [&_h3]:mb-2 [&_strong]:text-white [&_a]:text-primary-400 [&_a:hover]:underline [&_code]:text-primary-300"
+                  dangerouslySetInnerHTML={{
+                    __html: (post as {contentHtml: string}).contentHtml,
+                  }}
+                />
+              ) : (
+                ((post as {content?: string[]}).content || []).map(
+                  (paragraph: string, index: number) => (
+                  <p key={index} className="text-base">
+                    {paragraph}
+                  </p>
+                  ),
+                )
+              )}
             </div>
 
             <div className="mt-10 flex items-center justify-between border-t border-zinc-800 pt-6 text-sm text-zinc-400">
