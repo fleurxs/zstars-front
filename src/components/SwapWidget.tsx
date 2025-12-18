@@ -667,7 +667,6 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
           `}
             >
               <span>{t.btnContinue}</span>
-              <span>{calculations.total.toLocaleString('ru-RU')} ₽</span>
             </button>
           </>
         )}
