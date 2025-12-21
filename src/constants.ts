@@ -419,7 +419,20 @@ zStars - Купить звезды и премиум, [21.12.2025 11:52]
 7.2. Продолжение использования Сервиса после изменений означает согласие с новыми Условиями.
 
 8. Контакты
-По вопросам обращайтесь в службу поддержки zstars.ru.`
+По вопросам обращайтесь в службу поддержки zstars.ru.`,
+    api: `API zstars.ru
+
+Мы предоставляем программный интерфейс (API) для автоматизации процессов покупки Telegram Stars и подписки Telegram Premium.
+
+О сервисе zstars.ru:
+• Стабильный и проверенный сервис с многолетним опытом работы
+• Высокая надежность и быстрая обработка запросов
+• Полная поддержка всех методов оплаты
+• Круглосуточная техническая поддержка
+
+Если вы хотите работать с нами через API, пожалуйста, свяжитесь с нашей командой для получения подробной документации и условий сотрудничества.
+
+[Контакты](/contacts)`
   },
   en: {
     privacy: `Privacy Policy
@@ -528,7 +541,20 @@ By using the zstars.ru service, you confirm your consent to this Privacy Policy.
 7.2. Continued use of the Service after changes means agreement with the new Terms.
 
 8. Contacts
-For questions, please contact zstars.ru support.`
+For questions, please contact zstars.ru support.`,
+    api: `zstars.ru API
+
+We provide an application programming interface (API) for automating the process of purchasing Telegram Stars and Telegram Premium subscriptions.
+
+About zstars.ru service:
+• Stable and proven service with years of experience
+• High reliability and fast request processing
+• Full support for all payment methods
+• 24/7 technical support
+
+If you want to work with us through API, please contact our team to get detailed documentation and cooperation terms.
+
+[Contacts](/contacts)`
   }
 } as const;
 
@@ -537,6 +563,21 @@ export const TRANSLATIONS = {
     nav: {
       about: "О нас",
       contacts: "Контакты"
+    },
+    contacts: {
+      title: "Контакты",
+      subtitle: "У вас есть вопросы? Свяжитесь с нашей командой поддержки. Мы всегда готовы помочь!",
+      telegramTitle: "Telegram поддержка",
+      telegramDesc: "Быстрая связь с нашей командой",
+      telegramResponse: "Рекомендуемый способ связи. Мы отвечаем в течение 15-30 минут в рабочее время.",
+      telegramBtn: "Написать в Telegram",
+      hoursTitle: "Время работы",
+      hoursDesc: "Когда мы онлайн",
+      weekday: "Понедельник - Пятница",
+      weekend: "Суббота - Воскресенье",
+      hoursWeekday: "10:00 - 22:00 MSK",
+      hoursWeekend: "12:00 - 20:00 MSK",
+      hoursNote: "Вне рабочего времени отвечаем с задержкой до 8 часов."
     },
     widget: {
       tabStars: "Telegram Stars",
@@ -656,6 +697,21 @@ export const TRANSLATIONS = {
     nav: {
       about: "About Us",
       contacts: "Contacts"
+    },
+    contacts: {
+      title: "Contacts",
+      subtitle: "Do you have any questions? Contact our support team. We're always ready to help!",
+      telegramTitle: "Telegram Support",
+      telegramDesc: "Quick communication with our team",
+      telegramResponse: "Recommended way to contact. We respond within 15-30 minutes during business hours.",
+      telegramBtn: "Write to Telegram",
+      hoursTitle: "Working Hours",
+      hoursDesc: "When we are online",
+      weekday: "Monday - Friday",
+      weekend: "Saturday - Sunday",
+      hoursWeekday: "10:00 - 22:00 MSK",
+      hoursWeekend: "12:00 - 20:00 MSK",
+      hoursNote: "Outside business hours we respond with a delay of up to 8 hours."
     },
     widget: {
       tabStars: "Telegram Stars",

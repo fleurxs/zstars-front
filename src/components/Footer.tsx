@@ -12,7 +12,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
   const t = TRANSLATIONS[language].footer;
   const legal = LEGAL_CONTENT[language];
 
-  const [modalType, setModalType] = useState<'privacy' | 'terms' | null>(null);
+  const [modalType, setModalType] = useState<'privacy' | 'terms' | 'api' | null>(null);
 
   return (
     <>
@@ -49,7 +49,12 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
             >
               {t.terms}
             </button>
-            <a href="#" className="hover:text-zinc-300 transition-colors">{t.api}</a>
+            <button
+              onClick={() => setModalType('api')}
+              className="hover:text-zinc-300 transition-colors"
+            >
+              {t.api}
+            </button>
           </div>
         </div>
       </footer>
@@ -62,11 +67,18 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
         content={legal.privacy}
       />
       
-      <Modal 
+      <Modal
         isOpen={modalType === 'terms'}
         onClose={() => setModalType(null)}
         title={t.terms}
         content={legal.terms}
+      />
+
+      <Modal
+        isOpen={modalType === 'api'}
+        onClose={() => setModalType(null)}
+        title={t.api}
+        content={legal.api}
       />
     </>
   );
