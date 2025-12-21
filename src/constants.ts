@@ -432,7 +432,7 @@ zStars - Купить звезды и премиум, [21.12.2025 11:52]
 
 Если вы хотите работать с нами через API, пожалуйста, свяжитесь с нашей командой для получения подробной документации и условий сотрудничества.
 
-[Контакты](/contacts)`
+<a href="/contacts" class="text-primary-400 hover:text-primary-500 underline">Контакты</a>`
   },
   en: {
     privacy: `Privacy Policy
@@ -554,7 +554,7 @@ About zstars.ru service:
 
 If you want to work with us through API, please contact our team to get detailed documentation and cooperation terms.
 
-[Contacts](/contacts)`
+<a href="/contacts" class="text-primary-400 hover:text-primary-500 underline">Contacts</a>`
   }
 } as const;
 

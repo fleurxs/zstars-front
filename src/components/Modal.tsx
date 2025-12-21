@@ -41,7 +41,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, content }) => {
         </div>
         
         <div className="p-6 overflow-y-auto text-zinc-300 leading-relaxed whitespace-pre-line text-sm md:text-base scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900">
-          {content}
+          <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
       </div>
     </div>
