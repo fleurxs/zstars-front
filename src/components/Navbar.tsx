@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ language, setLanguage }) => {
       {/* Links & Lang Switcher */}
       <div className="flex items-center gap-6 md:gap-8">
         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
-          <a href="#about" className="hover:text-white transition-colors">{t.about}</a>
+          <Link href="/about" className="hover:text-white transition-colors">{t.about}</Link>
           <Link href="/contacts" className="hover:text-white transition-colors">{t.contacts}</Link>
         </div>
         

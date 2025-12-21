@@ -579,6 +579,20 @@ export const TRANSLATIONS = {
       hoursWeekend: "12:00 - 20:00 MSK",
       hoursNote: "Вне рабочего времени отвечаем с задержкой до 8 часов."
     },
+    about: {
+      title: "О нас",
+      subtitle: "zStars - ваш надежный партнер в экосистеме Telegram",
+      description1: "Мы команда энтузиастов, специализирующихся на Telegram Stars и Telegram Premium. Наша цель - сделать процесс покупки звезд и премиум-подписок максимально простым и удобным для пользователей.",
+      description2: "С момента запуска в 2024 году мы помогли тысячам пользователей получить доступ к премиальным функциям Telegram. Мы гордимся тем, что предлагаем честные цены, быструю доставку и круглосуточную поддержку.",
+      description3: "Наша миссия - развивать и улучшать экосистему Telegram, делая ее более доступной и функциональной для всех пользователей. Мы постоянно следим за обновлениями платформы и предлагаем актуальные решения.",
+      features: {
+        title: "Почему выбирают нас:",
+        reliable: "Надежность и безопасность всех транзакций",
+        speed: "Быстрая доставка звезд и премиум-подписок",
+        support: "Круглосуточная поддержка на русском языке",
+        prices: "Честные цены без скрытых комиссий"
+      }
+    },
     widget: {
       tabStars: "Telegram Stars",
       tabPremium: "Telegram Premium",
@@ -712,6 +726,20 @@ export const TRANSLATIONS = {
       hoursWeekday: "10:00 - 22:00 MSK",
       hoursWeekend: "12:00 - 20:00 MSK",
       hoursNote: "Outside business hours we respond with a delay of up to 8 hours."
+    },
+    about: {
+      title: "About Us",
+      subtitle: "zStars - Your trusted partner in the Telegram ecosystem",
+      description1: "We are a team of enthusiasts specializing in Telegram Stars and Telegram Premium. Our goal is to make the process of purchasing stars and premium subscriptions as simple and convenient as possible for users.",
+      description2: "Since launching in 2024, we have helped thousands of users gain access to Telegram's premium features. We are proud to offer fair prices, fast delivery, and 24/7 support.",
+      description3: "Our mission is to develop and improve the Telegram ecosystem, making it more accessible and functional for all users. We constantly monitor platform updates and offer relevant solutions.",
+      features: {
+        title: "Why choose us:",
+        reliable: "Reliability and security of all transactions",
+        speed: "Fast delivery of stars and premium subscriptions",
+        support: "24/7 support in Russian",
+        prices: "Fair prices without hidden fees"
+      }
     },
     widget: {
       tabStars: "Telegram Stars",
