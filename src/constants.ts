@@ -168,14 +168,74 @@ export const BLOG_POSTS = {
     {
       slug: "pochemu-podarki-ne-prinosyat-profit",
       image: "/blog/pochemu-podarki-ne-prinosyat-profit.png",
-      title: "Why new gifts don't bring the expected profit?",
-      excerpt: "We break down recent drops, market saturation, and how to protect margin.",
+      title: "Why new gifts don't bring the expected profit in December 2025?",
+      excerpt: "In December 2025, earning from new Telegram gifts is harder: market saturation, competition, conversion discount to Stars, and falling liquidity. Analysis of reasons and checklist before purchase.",
       date: "12 Oct 2025",
-      content: [
-        "Early Telegram gift releases felt like free money, but the market saturated quickly. Demand shifted to rare collections while users started tracking ROI more carefully.",
-        "To avoid losses on fresh drops, calculate the full bill: purchase price, withdrawal fees, and holding costs. We share margin models and how to estimate profitability before you buy.",
-        "Stable results come from mixing new gifts with liquid TON positions and spreading risk. Track demand signals and avoid going all-in on a single release."
-      ]
+      contentHtml: `<h1>Telegram gifts in December 2025: why "easy money" has ended</h1>
+<p><strong>Earning from new gifts in Telegram by December 2025 has become noticeably harder.</strong> The market has grown and become competitive: there are more offers, fewer secondary market buyers, and fast deals often go to those with experience and speed. <strong>Below are the main reasons why new drops often don't bring expected profits, and how to soberly assess risks before buying.</strong></p>
+<p style="margin: 32px 0;"></p>
+<h2>What to understand about Telegram gifts in 2025</h2>
+<p>Telegram gifts can be not only "decor" but also <strong>collectible</strong>: they can be forwarded or transferred, and some mechanics are linked to the TON blockchain. Telegram officially wrote about <strong>collectible gifts</strong> in the early 2025 update.</p>
+<p>Telegram also describes the technical mechanics of gifts and conversion to Stars in the API documentation: a gift can be <strong>converted to Stars</strong>, but this destroys the gift.</p>
+<p style="margin: 32px 0;"></p>
+<h2>Why new gifts often no longer bring profit</h2>
+<h3>1) Market saturation: rarity spreads out, liquidity falls</h3>
+<p>When more collections appear, money and attention from buyers is distributed among more options. The result is simple:</p>
+<ul>
+  <li>it's harder to "catch" massive demand specifically for your gift;</li>
+  <li>more positions hang without buyers;</li>
+  <li>resale takes more time and often goes with a discount.</li>
+</ul>
+<p>I don't know the exact "how many drops" figure — Telegram doesn't have a single public official calendar of releases. Therefore, the correct wording is: the assortment and number of collectible gifts has noticeably increased, which is why rarity has stopped being an automatic advantage.</p>
+<h3>2) Speed competition: it's getting harder for ordinary users to take "best instances"</h3>
+<p>On release days of scarce digital items, almost always appear:</p>
+<ul>
+  <li>players who react faster (including through automation);</li>
+  <li>resellers who take the most "tasty" options in the first minutes.</li>
+</ul>
+<p>I cannot confirm the claim "whales control up to 80% of supply" — there is no such universal data in open official sources. It's more correct to say: large holders can noticeably influence price in certain series, but the degree of control depends on the specific collection.</p>
+<h3>3) Conversion to Stars — not a way to make money (usually it's an exit with loss)</h3>
+<p>The key moment that breaks expectations for beginners: <strong>gift conversion to Stars does not equal full cost refund.</strong></p>
+<p>In Telegram's official documentation it's stated directly:</p>
+<ul>
+  <li><code>convert_stars</code> will be less than the Stars purchase price (<code>stars</code>).</li>
+  <li><code>convert_stars</code> can equal <code>stars</code> only if the gift was purchased with "recently purchased Stars", otherwise — less.</li>
+</ul>
+<p>Therefore "bought → converted → profited" doesn't work by mechanics. Plus a psychological trap appears: a person sees the nominal value, but the real "exit price" is lower.</p>
+<p>About the "85%" fixed conversion rate I cannot say — it's not given as a constant rule in Telegram's official documentation. If somewhere in the interface or translations "85%" pops up, without reference to the official specification, it cannot be considered a universal financial condition.</p>
+<h3>4) Speculative wave deflation: there are fewer buyers "at the end of the chain"</h3>
+<p>Speculative markets grow as long as there are new buyers. When demand slows down:</p>
+<ul>
+  <li>part of gifts stop growing in price;</li>
+  <li>resales go worse;</li>
+  <li>"quick flip" turns into waiting or selling at a loss.</li>
+</ul>
+<p>The example "X grew from $30 to $1000" I won't confirm — I don't know about which specific sales and what sample it is. More correct: in certain series and certain rare instances, there are indeed sharp price movements, but this is not the norm for every new drop.</p>
+<p style="margin: 32px 0;"></p>
+<h2>Where are gifts usually sold and why it matters</h2>
+<p>If considering gifts as trading, you critically need to look at secondary liquidity and transaction history. On the TON market, one of the most famous NFT marketplaces — <strong>Getgems</strong>.</p>
+<p style="margin: 32px 0;"></p>
+<h2>Checklist before buying (to not buy illiquid)</h2>
+<ol>
+  <li><strong>Why are you buying?</strong>
+    <ul>
+      <li>"For profile/collection" — ok.</li>
+      <li>"For profit" — only if ready for risks and competition.</li>
+    </ul>
+  </li>
+  <li><strong>Is there real demand, not just hype?</strong> "For the soul" demand is usually more stable than "buy because it grows".</li>
+  <li><strong>Exit plan:</strong>
+    <ul>
+      <li>understand that conversion to Stars may be with discount;</li>
+      <li>decide in advance where and to whom you'll sell (inside Telegram or on marketplace).</li>
+    </ul>
+  </li>
+  <li><strong>Risk management:</strong> don't go in with an amount you won't survive losing calmly.</li>
+</ol>
+<p style="margin: 32px 0;"></p>
+<h2>Conclusion</h2>
+<p>New gifts in Telegram in December 2025 often don't bring money because the market has become dense: more collections, higher competition, and "exit to Stars" by mechanics usually worse than nominal.</p>
+<p>If you're not professionally trading and not ready for volatility, then buying "for profit" really looks like a lottery, not a stable way to earn money.</p>`
     },
     {
       slug: "ton-100-price-outlook",
