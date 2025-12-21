@@ -13,10 +13,10 @@ export default function ContactsPage() {
   const tc = t.contacts;
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       <Navbar language={language} setLanguage={setLanguage} />
 
-      <main className="max-w-4xl mx-auto px-8 py-16">
+      <main className="flex-1 max-w-4xl mx-auto px-8 py-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
             {tc.title}
