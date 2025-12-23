@@ -12,7 +12,7 @@ const CookieBanner: React.FC<CookieBannerProps> = ({ language }) => {
 
   useEffect(() => {
     // Check if the user has already accepted cookies
-    const consented = localStorage.getItem('starpay_cookie_consent');
+    const consented = localStorage.getItem('cookie_consent');
     if (!consented) {
       // Small delay for better UX
       const timer = setTimeout(() => setIsVisible(true), 1000);
@@ -21,7 +21,7 @@ const CookieBanner: React.FC<CookieBannerProps> = ({ language }) => {
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('starpay_cookie_consent', 'true');
+    localStorage.setItem('cookie_consent', 'true');
     setIsVisible(false);
   };
 
