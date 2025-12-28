@@ -212,6 +212,9 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     const val = e.target.value;
     // Allow only English letters, numbers, and underscores
     const cleaned = val.replace(/[^a-zA-Z0-9_]/g, '');
+    if (cleaned === username) {
+      return;
+    }
     setUsername(cleaned);
     setUsernameError('');
     setPremiumError('');
