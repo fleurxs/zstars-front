@@ -212,8 +212,10 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     const cleaned = val.replace(/[^a-zA-Z0-9_]/g, '');
     setUsername(cleaned);
     setUsernameError('');
+    setPremiumError('');
     setDisplayName('');
     setAvatar(null);
+    setCanSendPremium(null);
   };
 
   const handleClearUsername = () => {
@@ -221,6 +223,8 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     setAvatar(null);
     setDisplayName('');
     setUsernameError('');
+    setPremiumError('');
+    setCanSendPremium(null);
     setPremiumError('');
     setIsLoadingUser(false);
     if (userFetchTimeout.current) {
