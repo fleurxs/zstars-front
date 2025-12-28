@@ -30,6 +30,7 @@ import {
   USERNAME_MIN_LENGTH
 } from '../constants';
 import { yandexMetrika } from '../lib/yandexMetrika';
+import { declineMonths } from '../lib/helpers';
 
 interface SwapWidgetProps {
   language: Language;
@@ -660,7 +661,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                         : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:bg-zinc-900'}
                   `}
                       >
-                        <span className="text-base font-medium opacity-80">{duration} месяцев</span>
+                        <span className="text-base font-medium opacity-80">{duration} {declineMonths(duration)}</span>
                         <span className="text-xs opacity-60">≈ {price} ₽</span>
                       </button>
                     );
