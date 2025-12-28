@@ -74,6 +74,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
   const [agreed, setAgreed] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState<string>('');
+  const [canSendPremium, setCanSendPremium] = useState<boolean | null>(null);
   const [step, setStep] = useState<number>(1);
   const [wallet, setWallet] = useState<string>('');
   const [walletError, setWalletError] = useState<string>('');
@@ -81,6 +82,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     'idle' | 'creating' | 'waiting' | 'completed' | 'failed'
   >('idle');
   const [usernameError, setUsernameError] = useState<string>('');
+  const [premiumError, setPremiumError] = useState<string>('');
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(false);
   const [isUsernameHelpOpen, setIsUsernameHelpOpen] = useState<boolean>(false);
   const [usernameHelpAccordion, setUsernameHelpAccordion] = useState<Record<string, boolean>>({});
@@ -102,6 +104,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     if (username.length < USERNAME_MIN_LENGTH) {
       setAvatar(null);
       setDisplayName('');
+      setCanSendPremium(null);
       setUsernameError('');
       setIsLoadingUser(false);
       return;
@@ -141,6 +144,17 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
         }
         setAvatar(data.avatar || DEFAULT_AVATAR);
         setDisplayName(data.displayName || '');
+        setCanSendPremium(data.canSendPremium);
+
+        // Проверка возможности отправки премиума
+        if (activeTab === TabType.PREMIUM && data.canSendPremium === false) {
+          setPremiumError(t.usernameAlreadyHasPremium);
+          // Не очищаем username и avatar, чтобы пользователь мог переключиться на звезды
+          return;
+        }
+
+        // Очищаем ошибку премиума при успешной валидации
+        setPremiumError('');
 
         // Отправка события в Яндекс Метрику при успешной валидации username
         yandexMetrika.trackUsernameValidated();
@@ -207,6 +221,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     setAvatar(null);
     setDisplayName('');
     setUsernameError('');
+    setPremiumError('');
     setIsLoadingUser(false);
     if (userFetchTimeout.current) {
       clearTimeout(userFetchTimeout.current);
@@ -534,6 +549,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
           onClick={() => {
             setActiveTab(TabType.STARS);
             setStarsAmount(50);
+            setPremiumError(''); // Очищаем ошибку премиума при переключении на звезды
           }}
           disabled={submitting}
           className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${
@@ -548,6 +564,13 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
           onClick={() => {
             setActiveTab(TabType.PREMIUM);
             setStarsAmount(3); // Default to 3 months for premium
+
+            // Проверяем премиум при переключении, если пользователь уже найден
+            if (displayName && canSendPremium === false) {
+              setPremiumError(t.usernameAlreadyHasPremium);
+            } else {
+              setPremiumError('');
+            }
           }}
           disabled={submitting}
           className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 ${
@@ -615,6 +638,13 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
               </div>
               {usernameError && (
                 <p className="text-xs text-red-400 ml-1">{usernameError}</p>
+              )}
+
+              {premiumError && (
+                <div className="flex items-start gap-3 bg-zinc-950 border border-red-800/50 rounded-lg p-3 mt-2">
+                  <AlertCircle size={18} className="text-red-400 mt-0.5"/>
+                  <p className="text-xs text-red-300 leading-relaxed">{premiumError}</p>
+                </div>
               )}
             </div>
 
