@@ -688,6 +688,14 @@ export const TRANSLATIONS = {
         }
       ]
     },
+    api: {
+      payment: {
+        method: {
+          sbp: "СБП - Система быстрых платежей",
+          card: "Карта МИР"
+        }
+      }
+    },
     referral: {
       title: "Приглашайте и зарабатывайте TON",
       desc: "Зарабатывайте до 50% от комиссии за покупки, совершенные вашими друзьями, навсегда."
@@ -836,6 +844,14 @@ export const TRANSLATIONS = {
           ]
         }
       ]
+    },
+    api: {
+      payment: {
+        method: {
+          sbp: "SBP - Fast payment system",
+          card: "Card Mir"
+        }
+      }
     },
     referral: {
       title: "Invite and Earn TON",

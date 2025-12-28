@@ -11,6 +11,7 @@ import {
   Info,
   Loader2,
   Mail,
+  QrCode,
   Star,
   User,
   Wallet,
@@ -40,6 +41,7 @@ interface SwapWidgetProps {
 
 const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug}) => {
   const t = TRANSLATIONS[language].widget;
+  const apiT = TRANSLATIONS[language].api;
   const usernameHelpSections = t.usernameHelpSections ?? [];
   const searchParams = useSearchParams();
   type PublicPaymentStatus =
@@ -724,7 +726,11 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
               <label className="text-xs font-medium text-zinc-400 ml-1">{t.labelPayment}</label>
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">
-                  <CreditCard size={18}/>
+                  {activePaymentMethod?.icon === 'qrcode' ? (
+                    <QrCode size={18}/>
+                  ) : (
+                    <CreditCard size={18}/>
+                  )}
                 </div>
                 <select
                   value={paymentMethod}
@@ -732,11 +738,16 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                   disabled={submitting}
                   className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 rounded-xl py-3.5 pl-10 pr-10 text-white outline-none appearance-none cursor-pointer transition-all font-medium disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {paymentMethods.map((m) => (
-                    <option key={m.id} value={m.code}>
-                      {m.name}
-                    </option>
-                  ))}
+                  {paymentMethods.map((m) => {
+                    // Разбираем ключ перевода api.payment.method.sbp -> sbp
+                    const translationKey = m.name.replace('api.payment.method.', '') as keyof typeof apiT.payment.method;
+                    const methodName = apiT.payment.method[translationKey] || m.name;
+                    return (
+                      <option key={m.id} value={m.code}>
+                        {methodName}
+                      </option>
+                    );
+                  })}
                 </select>
                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
                   <ChevronDown size={16}/>

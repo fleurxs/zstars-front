@@ -12,6 +12,7 @@ export interface PaymentMethodOption {
   provider: string;
   code: string;
   name: string;
+  icon: string;
   limits: {
     min: number;
     max: number;

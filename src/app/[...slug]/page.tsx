@@ -7,7 +7,8 @@ const FALLBACK_PAYMENT_METHODS: PaymentMethodOption[] = [
     id: 1,
     provider: 'freekassa',
     code: 'sbp',
-    name: 'SBP',
+    name: 'api.payment.method.sbp',
+    icon: 'qrcode',
     limits: {min: 50, max: 1000000},
     commission: {percent: 0, fixed: 0},
   },
@@ -15,7 +16,8 @@ const FALLBACK_PAYMENT_METHODS: PaymentMethodOption[] = [
     id: 2,
     provider: 'freekassa',
     code: 'card',
-    name: 'Card',
+    name: 'api.payment.method.card',
+    icon: 'card',
     limits: {min: 50, max: 1000000},
     commission: {percent: 0, fixed: 0},
   },
@@ -32,8 +34,8 @@ async function fetchPaymentMethods(): Promise<PaymentMethodOption[]> {
       return FALLBACK_PAYMENT_METHODS;
     }
     const payload = await res.json();
-    if (Array.isArray(payload?.data)) {
-      return payload.data;
+    if (Array.isArray(payload?.result)) {
+      return payload.result;
     }
     return FALLBACK_PAYMENT_METHODS;
   } catch {
