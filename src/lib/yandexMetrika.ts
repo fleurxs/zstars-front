@@ -53,6 +53,13 @@ class YandexMetrikaService {
   public trackUsernameValidated(): void {
     this.reachGoal('username_validated');
   }
+
+  /**
+   * Отправляет событие успешного завершения оплаты
+   */
+  public trackPaymentCompleted(): void {
+    this.reachGoal('payment_completed');
+  }
 }
 
 // Экспортируем singleton instance
