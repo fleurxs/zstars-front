@@ -146,6 +146,15 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
         }
         setAvatar(data.avatar || DEFAULT_AVATAR);
         setDisplayName(data.displayName || '');
+
+        // Отправка события в Яндекс Метрику при успешной валидации username
+        const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
+        if (yandexMetrikaId && window.ym) {
+          const counterId = parseInt(yandexMetrikaId, 10);
+          if (!isNaN(counterId)) {
+            window.ym(counterId, 'reachGoal', 'username_validated');
+          }
+        }
       } catch (err: unknown) {
         if ((err as Error)?.name === 'AbortError') {
           return;
