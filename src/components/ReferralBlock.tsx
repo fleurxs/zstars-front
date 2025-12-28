@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Gift, ChevronRight } from 'lucide-react';
 import { TRANSLATIONS } from '../constants';
 import { Language } from '../types';
@@ -8,10 +9,18 @@ interface ReferralBlockProps {
 }
 
 const ReferralBlock: React.FC<ReferralBlockProps> = ({ language }) => {
+  const router = useRouter();
   const t = TRANSLATIONS[language].referral;
 
+  const handleClick = () => {
+    router.push('/contacts');
+  };
+
   return (
-    <div className="w-full mt-6 bg-zinc-900 border border-zinc-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden group cursor-pointer hover:border-zinc-700 transition-all shadow-xl">
+    <div
+      onClick={handleClick}
+      className="w-full mt-6 bg-zinc-900 border border-zinc-800 rounded-2xl p-5 flex items-center gap-4 relative overflow-hidden group cursor-pointer hover:border-zinc-700 transition-all shadow-xl"
+    >
       {/* Background Effect */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-primary-500/5 rounded-full blur-2xl -mr-16 -mt-16 transition-opacity opacity-50 group-hover:opacity-80 pointer-events-none"></div>
       

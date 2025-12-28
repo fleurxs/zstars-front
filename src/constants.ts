@@ -30,7 +30,7 @@ export const SLIDES = {
   ru: [
     {
       id: 1,
-      title: "zStars News",
+      title: "Блог zStars: новости и разборы Telegram",
       text: "Подписывайтесь на наш телеграм канал. Рассказываем об экосистеме телеграм и не только.",
       linkUrl: "https://t.me/zStarsNews",
       linkLabel: "Перейти в канал",
