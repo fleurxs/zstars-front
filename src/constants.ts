@@ -613,7 +613,7 @@ export const TRANSLATIONS = {
       badgeStars: "Звезд",
       badgePremium: "Премиум",
       amountTitleStars: "Количество Stars",
-      amountTitlePremium: "Количество месяцев Premium",
+      amountTitlePremium: "Месяцев Premium",
       walletEmailLabel: "Email для чека",
       walletPhoneLabel: "Телефон для чека",
       walletOptionalLabel: "Контакт для чека",
@@ -694,7 +694,9 @@ export const TRANSLATIONS = {
       payment: {
         method: {
           sbp: "СБП - Система быстрых платежей",
-          card: "Карта МИР"
+          card: "Карта МИР",
+          sbpShort: "СБП",
+          cardShort: "Карта"
         }
       }
     },
@@ -853,7 +855,9 @@ export const TRANSLATIONS = {
       payment: {
         method: {
           sbp: "SBP - Fast payment system",
-          card: "Card Mir"
+          card: "Mir Card",
+          sbpShort: "SBP",
+          cardShort: "Card"
         }
       }
     },

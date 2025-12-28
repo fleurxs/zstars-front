@@ -855,17 +855,13 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                   <div className="flex items-center justify-between text-sm text-zinc-300">
                     <span>{t.priceRub}</span>
                     <span className="text-xs text-zinc-500">
-                      ({activePaymentMethod?.name || t.paymentFallback})
+                      ({activePaymentMethod && activePaymentMethod.nameShort ? apiT.payment.method[activePaymentMethod.nameShort.split('.').pop() as keyof typeof apiT.payment.method] : t.paymentFallback})
                     </span>
                   </div>
                   <div className="flex items-baseline gap-2 mt-2">
                     <span className="text-3xl font-bold text-white">
                       {calculations.total.toLocaleString('ru-RU')} ₽
                     </span>
-                  </div>
-                  <div className="mt-3 inline-flex items-center gap-2 text-xs text-primary-200 bg-primary-500/10 border border-primary-500/40 px-2 py-1 rounded-lg w-fit">
-                    <Wallet size={14}/>
-                    <span>{t.badgeRub}</span>
                   </div>
                 </div>
 
@@ -884,14 +880,10 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                       {calculations.receiveAmount.toLocaleString()}
                     </span>
                     {activeTab === TabType.STARS ? (
-                      <Star size={18} className="fill-yellow-500 text-yellow-500"/>
+                      <Star size={24} className="fill-yellow-500 text-yellow-500"/>
                     ) : (
-                      <CalendarDays size={18} className="text-primary-300"/>
+                      <CalendarDays size={24} className="text-primary-300"/>
                     )}
-                  </div>
-                  <div className="mt-3 inline-flex items-center gap-2 text-xs text-primary-200 bg-primary-500/10 border border-primary-500/40 px-2 py-1 rounded-lg w-fit">
-                    {activeTab === TabType.STARS ? <Star size={14} className="fill-yellow-500 text-yellow-500"/> : <CalendarDays size={14} className="text-primary-300"/>}
-                    <span>{activeTab === TabType.STARS ? t.badgeStars : t.badgePremium}</span>
                   </div>
                 </div>
               </div>
