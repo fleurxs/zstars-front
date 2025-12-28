@@ -29,13 +29,7 @@ import {
   USERNAME_MAX_LENGTH,
   USERNAME_MIN_LENGTH
 } from '../constants';
-
-// Типы для Яндекс Метрики
-declare global {
-  interface Window {
-    ym?: (counterId: number, method: string, ...args: any[]) => void;
-  }
-}
+import { yandexMetrika } from '../lib/yandexMetrika';
 
 interface SwapWidgetProps {
   language: Language;
@@ -148,13 +142,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
         setDisplayName(data.displayName || '');
 
         // Отправка события в Яндекс Метрику при успешной валидации username
-        const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
-        if (yandexMetrikaId && window.ym) {
-          const counterId = parseInt(yandexMetrikaId, 10);
-          if (!isNaN(counterId)) {
-            window.ym(counterId, 'reachGoal', 'username_validated');
-          }
-        }
+        yandexMetrika.trackUsernameValidated();
       } catch (err: unknown) {
         if ((err as Error)?.name === 'AbortError') {
           return;
@@ -475,13 +463,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     }
 
     // Отправка события в Яндекс Метрику при клике на кнопку оплаты
-    const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
-    if (yandexMetrikaId && window.ym) {
-      const counterId = parseInt(yandexMetrikaId, 10);
-      if (!isNaN(counterId)) {
-        window.ym(counterId, 'reachGoal', 'payment_click');
-      }
-    }
+    yandexMetrika.trackPaymentClick();
 
     const walletForPayload = getPayloadWallet();
     if (walletRequired && !walletForPayload) {
