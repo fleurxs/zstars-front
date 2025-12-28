@@ -600,7 +600,7 @@ export const TRANSLATIONS = {
       usernameNotFound: "Пользователь не найден",
       usernameFetchError: "Не удалось загрузить данные пользователя",
       labelAmountStars: "Количество звезд",
-      labelDuration: "Длительность (мес.)",
+      labelDuration: "Длительность месяцев",
       labelPayment: "Способ оплаты",
       btnContinue: "Далее",
       userProfile: "Профиль пользователя",
