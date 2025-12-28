@@ -458,7 +458,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
   }, [paymentMethods, searchParams]);
 
   const canProceedToReview =
-    username.length >= USERNAME_MIN_LENGTH && !usernameError && paymentMethod && normalizedAmount > 0;
+    username.length >= USERNAME_MIN_LENGTH && !usernameError && paymentMethod && normalizedAmount > 0 && premiumError === '';
 
   const walletLabel =
     walletRequirement === 'email'
@@ -481,6 +481,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     walletError === '' &&
     (!walletRequired || wallet.trim() !== '') &&
     username.length >= USERNAME_MIN_LENGTH &&
+    premiumError === '' &&
     !submitting;
 
   const getPayloadWallet = () => {
