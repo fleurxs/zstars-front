@@ -349,9 +349,11 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
           setPaymentStatus(status);
           if (isFinalStatus(status)) {
             setSubmittingPhase(status === 'completed' ? 'completed' : 'failed');
-            // Отправка события в Яндекс Метрику при успешном завершении оплаты
+            // Отправка события в Яндекс Метрику при завершении оплаты
             if (status === 'completed') {
               yandexMetrika.trackPaymentCompleted();
+            } else {
+              yandexMetrika.trackPaymentFailed();
             }
           }
         }

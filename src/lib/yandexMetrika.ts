@@ -60,6 +60,13 @@ class YandexMetrikaService {
   public trackPaymentCompleted(): void {
     this.reachGoal('payment_completed');
   }
+
+  /**
+   * Отправляет событие провального завершения оплаты
+   */
+  public trackPaymentFailed(): void {
+    this.reachGoal('payment_failed');
+  }
 }
 
 // Экспортируем singleton instance
