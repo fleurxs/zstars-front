@@ -30,6 +30,13 @@ import {
   USERNAME_MIN_LENGTH
 } from '../constants';
 
+// Типы для Яндекс Метрики
+declare global {
+  interface Window {
+    ym?: (counterId: number, method: string, ...args: any[]) => void;
+  }
+}
+
 interface SwapWidgetProps {
   language: Language;
   paymentMethods: PaymentMethodOption[];
@@ -457,6 +464,16 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     if (!canPay || submitting) {
       return;
     }
+
+    // Отправка события в Яндекс Метрику при клике на кнопку оплаты
+    const yandexMetrikaId = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
+    if (yandexMetrikaId && window.ym) {
+      const counterId = parseInt(yandexMetrikaId, 10);
+      if (!isNaN(counterId)) {
+        window.ym(counterId, 'reachGoal', 'payment_click');
+      }
+    }
+
     const walletForPayload = getPayloadWallet();
     if (walletRequired && !walletForPayload) {
       setWalletError(walletRequirement === 'phone' ? t.walletInvalidPhone : t.walletInvalidEmail);
