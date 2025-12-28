@@ -15,14 +15,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries = basePaths.map((path) => ({
     url: path ? `${normalizedSiteUrl}${path}` : normalizedSiteUrl,
     lastModified,
-    changeFrequency: "weekly",
+    changeFrequency: "weekly" as const,
     priority: path === "" ? 1 : 0.8,
   }));
 
   const blogEntries = blogSlugs.map((slug) => ({
     url: `${normalizedSiteUrl}/blog/${slug}`,
     lastModified,
-    changeFrequency: "weekly",
+    changeFrequency: "weekly" as const,
     priority: 0.6,
   }));
 
