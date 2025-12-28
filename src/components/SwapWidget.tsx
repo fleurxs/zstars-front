@@ -517,7 +517,6 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     setPaymentStatus(null);
     setPaymentUrl(null);
     setSubmittingPhase('creating');
-    const paymentWindow = typeof window !== 'undefined' ? window.open('', '_blank', 'noopener,noreferrer') : null;
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
     const endpoint = '/v1/public/api/payments';
     const url = baseUrl ? `${baseUrl.replace(/\/+$/, '')}${endpoint}` : endpoint;
@@ -543,19 +542,14 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       if (result?.paymentUrl) {
         const link = result.paymentUrl;
         setPaymentUrl(link);
-        if (paymentWindow && !paymentWindow.closed) {
-          paymentWindow.location.href = link;
-        } else {
-          window.location.href = link;
+        if (typeof window !== 'undefined') {
+          window.open(link, '_blank', 'noopener,noreferrer');
         }
         setSubmittingPhase('waiting');
         return;
       }
       throw new Error('payment_url_missing');
     } catch (err) {
-      if (paymentWindow && !paymentWindow.closed) {
-        paymentWindow.close();
-      }
       setSubmittingPhase('idle');
     }
   };
