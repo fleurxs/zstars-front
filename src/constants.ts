@@ -563,6 +563,18 @@ export const TRANSLATIONS = {
       about: "О нас",
       contacts: "Контакты"
     },
+    seo: {
+      homeTitle: "Telegram Stars и Premium без комиссий",
+      homeDescription: "Купите Telegram Stars и Premium с мгновенной доставкой. Оплата СБП, банковской картой РФ и криптовалютой TON без KYC.",
+      blogTitle: "Блог zStars: новости и разборы Telegram Stars",
+      blogDescription: "Свежие статьи о Telegram Stars, Premium и экосистеме TON: инструкции, безопасность и аналитика.",
+      blogPostFallbackTitle: "Блог zStars",
+      blogPostFallbackDescription: "Статья блога zStars о Telegram Stars, Premium и экосистеме TON.",
+      aboutTitle: "О нас — zStars",
+      aboutDescription: "zStars помогает безопасно купить Telegram Stars и Premium с быстрой доставкой и поддержкой 24/7 без скрытых комиссий.",
+      contactsTitle: "Контакты — zStars",
+      contactsDescription: "Свяжитесь с поддержкой zStars в Telegram или по почте. Работаем ежедневно, отвечаем быстро и помогаем с оплатой Stars и Premium."
+    },
     contacts: {
       title: "Контакты",
       subtitle: "У вас есть вопросы? Свяжитесь с нашей командой поддержки. Мы всегда готовы помочь!",
@@ -723,6 +735,18 @@ export const TRANSLATIONS = {
     nav: {
       about: "About Us",
       contacts: "Contacts"
+    },
+    seo: {
+      homeTitle: "Telegram Stars and Premium with instant delivery",
+      homeDescription: "Buy Telegram Stars and Premium fast. Pay via SBP, Russian bank cards, or TON crypto without KYC.",
+      blogTitle: "zStars blog: news and guides on Telegram Stars",
+      blogDescription: "Fresh articles about Telegram Stars, Premium, and TON: how-tos, security, and analytics.",
+      blogPostFallbackTitle: "zStars Blog",
+      blogPostFallbackDescription: "zStars blog article about Telegram Stars, Premium, and the TON ecosystem.",
+      aboutTitle: "About Us — zStars",
+      aboutDescription: "zStars helps you buy Telegram Stars and Premium safely with fast delivery and 24/7 support without hidden fees.",
+      contactsTitle: "Contacts — zStars",
+      contactsDescription: "Contact zStars support on Telegram or by email. We reply quickly and help with Stars and Premium payments."
     },
     contacts: {
       title: "Contacts",

@@ -1,6 +1,54 @@
 import {Suspense} from 'react';
+import type {Metadata} from 'next';
 import HomeClient from '@/components/HomeClient';
 import {PaymentMethodOption} from '@/types';
+import {TRANSLATIONS} from '@/constants';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zstars.app';
+
+function resolveTexts(lang: 'ru' | 'en') {
+  const seo = TRANSLATIONS[lang].seo;
+  return {
+    title: seo.homeTitle,
+    description: seo.homeDescription,
+  };
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams?: Promise<{lang?: string}>;
+}): Promise<Metadata> {
+  const params = (await searchParams) ?? {};
+  const lang: 'ru' | 'en' = params.lang === 'en' ? 'en' : 'ru';
+  const {title, description} = resolveTexts(lang);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: '/',
+    },
+    openGraph: {
+      title,
+      description,
+      url: siteUrl,
+      images: [
+        {
+          url: '/favicon.ico',
+          width: 64,
+          height: 64,
+          alt: 'zStars логотип',
+        },
+      ],
+    },
+    twitter: {
+      title,
+      description,
+      images: ['/favicon.ico'],
+    },
+  };
+}
 
 const FALLBACK_PAYMENT_METHODS: PaymentMethodOption[] = [
   {

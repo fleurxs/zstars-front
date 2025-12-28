@@ -1,6 +1,18 @@
 import {Suspense} from 'react';
+import type {Metadata} from 'next';
 import HomeClient from '@/components/HomeClient';
 import {PaymentMethodOption} from '@/types';
+import {TRANSLATIONS} from '@/constants';
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://zstars.app';
+
+function resolveTexts(lang: 'ru' | 'en') {
+  const seo = TRANSLATIONS[lang].seo;
+  return {
+    title: seo.homeTitle,
+    description: seo.homeDescription,
+  };
+}
 
 const FALLBACK_PAYMENT_METHODS: PaymentMethodOption[] = [
   {
@@ -47,6 +59,46 @@ async function fetchPaymentMethods(): Promise<PaymentMethodOption[]> {
   } catch {
     return FALLBACK_PAYMENT_METHODS;
   }
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string[] }>;
+  searchParams?: Promise<{lang?: string}>;
+}): Promise<Metadata> {
+  const {slug} = await params;
+  const path = slug.join('/');
+  const search = (await searchParams) ?? {};
+  const lang: 'ru' | 'en' = search.lang === 'en' ? 'en' : 'ru';
+  const {title, description} = resolveTexts(lang);
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${path}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/${path}`,
+      images: [
+        {
+          url: '/favicon.ico',
+          width: 64,
+          height: 64,
+          alt: 'zStars логотип',
+        },
+      ],
+    },
+    twitter: {
+      title,
+      description,
+      images: ['/favicon.ico'],
+    },
+  };
 }
 
 export default async function Page({
