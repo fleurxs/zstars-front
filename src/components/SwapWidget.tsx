@@ -251,8 +251,16 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
     if (activeTab === TabType.STARS) {
       subtotal = safeAmount * RUB_PER_STAR;
     } else {
-      // Simple premium logic: 300 RUB per month approx base
-      subtotal = safeAmount * 299;
+      // Premium pricing based on months
+      const getPremiumPrice = (months: number) => {
+        switch (months) {
+          case 3: return 1200;
+          case 6: return 2400;
+          case 12: return 4800;
+          default: return months * 299;
+        }
+      };
+      subtotal = getPremiumPrice(safeAmount);
     }
 
     const fee = Math.ceil(subtotal * PAYMENT_FEE_PERCENT);
@@ -638,21 +646,25 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-3">
-                  {PREMIUM_MONTHS.map((duration) => (
-                    <button
-                      key={duration}
-                      onClick={() => setStarsAmount(duration)}
-                      disabled={submitting}
-                      className={`
-                    flex flex-col items-center justify-center py-3 rounded-xl border transition-all duration-200
+                  {PREMIUM_MONTHS.map((duration) => {
+                    const price = duration === 3 ? 1200 : duration === 6 ? 2400 : duration === 12 ? 4800 : duration * 299;
+                    return (
+                      <button
+                        key={duration}
+                        onClick={() => setStarsAmount(duration)}
+                        disabled={submitting}
+                        className={`
+                    flex flex-col items-start justify-center py-3 px-4 rounded-xl border transition-all duration-200
                     ${starsAmount === duration
                         ? 'bg-primary-400/10 border-primary-400 text-primary-400 ring-1 ring-primary-400/50'
                         : 'bg-zinc-950 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:bg-zinc-900'}
                   `}
-                    >
-                      <span className="text-lg font-bold">{duration} {language === 'ru' ? 'Мес.' : 'Mon.'}</span>
-                    </button>
-                  ))}
+                      >
+                        <span className="text-base font-medium opacity-80">{duration} месяцев</span>
+                        <span className="text-xs opacity-60">≈ {price} ₽</span>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
