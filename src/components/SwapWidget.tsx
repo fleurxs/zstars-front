@@ -89,6 +89,7 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
   const [isUsernameHelpOpen, setIsUsernameHelpOpen] = useState<boolean>(false);
   const [usernameHelpAccordion, setUsernameHelpAccordion] = useState<Record<string, boolean>>({});
   const [paymentStatus, setPaymentStatus] = useState<PublicPaymentStatus | null>(null);
+  const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
   const userFetchTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const userFetchController = useRef<AbortController | null>(null);
   const statusIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -502,7 +503,6 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       return;
     }
 
-    // Отправка события в Яндекс Метрику при клике на кнопку оплаты
     yandexMetrika.trackPaymentClick();
 
     const walletForPayload = getPayloadWallet();
@@ -515,7 +515,9 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       statusIntervalRef.current = null;
     }
     setPaymentStatus(null);
+    setPaymentUrl(null);
     setSubmittingPhase('creating');
+    const paymentWindow = typeof window !== 'undefined' ? window.open('', '_blank', 'noopener,noreferrer') : null;
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
     const endpoint = '/v1/public/api/payments';
     const url = baseUrl ? `${baseUrl.replace(/\/+$/, '')}${endpoint}` : endpoint;
@@ -539,12 +541,21 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
       const data = await res.json();
       const result = data?.result ?? data?.data ?? null;
       if (result?.paymentUrl) {
-        window.open(result.paymentUrl, '_blank', 'noopener,noreferrer');
+        const link = result.paymentUrl;
+        setPaymentUrl(link);
+        if (paymentWindow && !paymentWindow.closed) {
+          paymentWindow.location.href = link;
+        } else {
+          window.location.href = link;
+        }
         setSubmittingPhase('waiting');
         return;
       }
       throw new Error('payment_url_missing');
     } catch (err) {
+      if (paymentWindow && !paymentWindow.closed) {
+        paymentWindow.close();
+      }
       setSubmittingPhase('idle');
     }
   };
@@ -982,6 +993,19 @@ const SwapWidget: React.FC<SwapWidgetProps> = ({language, paymentMethods, slug})
                 <Loader2 size={18} className="text-primary-300 animate-spin"/>
                 <div className="flex flex-col">
                   <span className="text-sm text-white">{currentStatusLabel}</span>
+                  {paymentUrl && (
+                    <div className="mt-3 flex flex-col gap-2">
+                      <a
+                        href={paymentUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary-400 text-black font-semibold text-sm hover:bg-primary-500 transition-colors"
+                      >
+                        {t.paymentLinkButton}
+                      </a>
+                      <span className="text-xs text-zinc-500">{t.paymentLinkHint}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
